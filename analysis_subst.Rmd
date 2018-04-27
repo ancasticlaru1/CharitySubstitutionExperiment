@@ -1,0 +1,87 @@
+---
+title: "Analysis of Substitution patterns from experimental data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Background: summary statistics and diagnostics
+
+We will perform standard parametric and nonparametric statistical analyses on full relevant samples, as well as testing for differences between subsets mentioned below.  
+
+As treatments are administered randomly,  and by design orthogonally to one another, we will first report statistical test without controls, particularly Fisher's exact test (for categorical outcomes and treatments) and Wilcoxon rank-sum test for continuous outcome variables.
+
+
+```{r Summary statistics}
+
+```
+
+PAP: If the data suggests strong  departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
+
+```{r Diagnostic tests}
+
+```
+
+##Main comparisons
+
+PAP: We will test for differences in the level and incidence of contributions at the *second intervention* (for the nonstudents this is via the Omnibus; for the Students, this is via the employability survey), between:
+
+1. 'No ask' vs 'some previous ask'
+2. 'Previous ask for similar charity' vs 'Previous ask for distinct charity'
+3. 'Previous ask for similar charity in poverty domain' vs 'Previous ask for similar charity in health domain'
+4. Recent previous ask (based on time email was sent to participant) versus less recent ask (we will fit a model of 'impact of delay on later contribution')
+
+For 2-4, we will also test for differences in differences, e.g., we will test whether those who are asked to donate to a similar charity increase or decrease their donations (between the 2 time intervals) more than those asked to donate to a distinct charity.
+
+
+```{r Statistical tests without controls}
+
+```
+
+PAP: Even under randomization, there will typically be an inexact balance in predetermined characteristics across treatments. Thus, regressions controls for predetermined observable characteristics (such as gender or income) can sometimes make estimates more efficient. Thus we report regressions with controls. We will perform model-fitting (e.g., stepwise regression) to determine the most efficient set of predetermined controls. We will run linear and Poisson-exponential regressions for charitable giving outcomes (as these are bounded variables), and also do robustness checks for other popular specifications used for bounded dependent variables, such as Tobit models. Similarly we will also report linear probability models and logit models for binary dependent variables, especially the extensive margin (donated a positive amount to a particular charity).  We are not likely report so-called "conditional on positive" effects, as these are difficult to identify  without an exogenous instrument for the extensive margin decision (we will only do so if such an instrument/shifter  becomes apparent to us in a very obvious way after collecting the data.)
+
+
+```{r Regressions with controls, model fitting}
+
+```
+
+```{r Creating matrix of robustness checks for alternate specifications, inclusion criteria}
+
+```
+
+
+##Differentiation of estimated effects (heterogeneity, interactions)
+
+PaP: Previous work (Reinstein, 2011; Karlan and Wood 2017, indirectly) suggests a greater degree of substitution (crowding-out) among those who are large and regular givers. ...
+
+Donors who have a personal optimization strategy and target, rather than donors who respond to emotional cues and  powerful appeals,  are also  arguably more likely to exhibit substitution.  Because of this, we will differentiate our estimates by personality attributes (measure in the omnibus) that previous literature find are associated with analytical versus emotional decision-making.
+
+We will estimate all of the above pooling Students and Non-students as our primary object of interest; we will estimate these separately as a secondary descriptive result.
+
+Because giving behavior has been found in many cases to differ by gender and by religious background, we will also bifurcate our estimates by these categories (gender, indicated religious affiliation vs. agnostic/atheist).  We have no ex-ante hypothesis for differences in the substitution effects between these groups.
+
+```{r Regressions-- "honest" differentiation (cross-validated and adjusted for mht), considering nonlinearity}
+
+```
+
+
+##Mediation analysis (exploratory)
+
+PAP: We will also attempt to measure whether the impact of the first ask on later donations is *mediated* by the donation response to the first ask (e.g., those who *donate* in the first ask may donate less in the second ask, while those who do *not* donate in the first ask may donate more in the second ask) . However, mediation analysis is difficult,  and we will state our results cautiously, following the guidance and techniques suggested in Heckman and Pinto (2014).
+
+```{r Mediation analysis}
+
+```
+
+##Additional results of interest
+```{r Additional results of interest}
+
+```
+
+##Ex-post power analyses and other evidentiary considerations
+
+
+##Meta-analysis (present and prior work, own and other authors)
+
