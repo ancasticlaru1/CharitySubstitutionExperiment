@@ -10,15 +10,6 @@ output:
 
 # Install packages
 
-```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
-install.packages(c(
-    "tidyverse",
-    "viridis",
-    "broom"
-))
-
-```
-
 ```{r message=FALSE, warning=FALSE}
 # library(tidyverse)
 library("dplyr")
@@ -31,26 +22,26 @@ library("readr")
 
 ```{r}
 # gerhard_dir <- "~/gerhard.riener@gmail.com/"
-data_archive <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Data/"
-data_build <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Build/Data/"
-list_of_files <- list.files(data_archive, ".csv$",recursive = T) 
+# data_archive <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Data/"
+# data_build <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Build/Data/"
+# list_of_files <- list.files(data_archive, ".csv$",recursive = T) 
 # ".py$" is the type of file you want to copy. Remove if copying all types of files. 
-file.copy(file.path(data_archive,list_of_files), data_build)
+# file.copy(file.path(data_archive,list_of_files), data_build)
 ```
 
 
 # Import data (Omnibus-linked study only, for now)
 
-*DR: are these importing as tibbles?*
+*DR: are these importing as tibbles?* GR: yes, everything is tibble here
 
 ```{r message=FALSE, warning=FALSE}
-StudentsFirstAsk <- read_csv("Data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("Data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+StudentsFirstAsk <- read_csv("data/StudentsFirstAsk.csv")
+StudentsSecondAsk <- read_delim("data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
-col_names <- names(read_csv("Data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+col_names <- names(read_csv("data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
-NonstudentsFirstAsk <- read_csv("Data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
-NonstudentsSecondAsk <- read_csv("Data/NonstudentsSecondAsk.csv")
+NonstudentsFirstAsk <- read_csv("data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
+NonstudentsSecondAsk <- read_csv("data/NonstudentsSecondAsk.csv")
 ```
 
 *DR: I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
@@ -155,5 +146,9 @@ IterateReplace("Gender2","SEX")
 AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
 
 mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
+
+# Save merged data
+write_csv(AskData, "../output/AskData.csv") 
+
 
 ```
