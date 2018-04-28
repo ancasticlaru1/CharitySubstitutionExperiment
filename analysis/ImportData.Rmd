@@ -10,7 +10,7 @@ output:
 
 # Install packages
 
-```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, include=FALSE}
 install.packages(c(
     "tidyverse",
     "viridis",
@@ -76,6 +76,7 @@ FirstAsk <- bind_rows(StudentsFirstAsk,NonstudentsFirstAsk) #stacks the rows for
 FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "international_ha" | firstasktreat == "international_hb" | firstasktreat == "domestic_happyafter" | firstasktreat == "domestic_happyfirst" | firstasktreat == "domestic_ha" | firstasktreat == "domestic_hb"  | firstasktreat == "international_happybefore" | firstasktreat == "international_happyafter") #Removes before/after treatments here. (DR: might later recover for fancy statistics?)
 
 ```
+
 ## Second ask
 ```{r}
 NonstudentsSecondAsk$Finished<-as.logical(NonstudentsSecondAsk$Finished)
