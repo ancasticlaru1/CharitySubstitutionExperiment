@@ -10,6 +10,18 @@ output:
 
 # Install packages
 
+<<<<<<< HEAD
+=======
+```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, include=FALSE}
+install.packages(c(
+    "tidyverse",
+    "viridis",
+    "broom"
+))
+
+```
+
+>>>>>>> c4aba5ad574f341c1c2b79e8493af2567f728d57
 ```{r message=FALSE, warning=FALSE}
 # library(tidyverse)
 library("dplyr")
@@ -35,6 +47,7 @@ library("readr")
 *DR: are these importing as tibbles?* GR: yes, everything is tibble here
 
 ```{r message=FALSE, warning=FALSE}
+<<<<<<< HEAD
 StudentsFirstAsk <- read_csv("data/StudentsFirstAsk.csv")
 StudentsSecondAsk <- read_delim("data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
@@ -42,9 +55,18 @@ col_names <- names(read_csv("data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: th
 
 NonstudentsFirstAsk <- read_csv("data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
 NonstudentsSecondAsk <- read_csv("data/NonstudentsSecondAsk.csv")
+=======
+StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
+StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+
+col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+
+NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
+NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
+>>>>>>> c4aba5ad574f341c1c2b79e8493af2567f728d57
 ```
 
-*DR: I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
+*DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
 
 ## First ask
 
@@ -67,6 +89,7 @@ FirstAsk <- bind_rows(StudentsFirstAsk,NonstudentsFirstAsk) #stacks the rows for
 FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "international_ha" | firstasktreat == "international_hb" | firstasktreat == "domestic_happyafter" | firstasktreat == "domestic_happyfirst" | firstasktreat == "domestic_ha" | firstasktreat == "domestic_hb"  | firstasktreat == "international_happybefore" | firstasktreat == "international_happyafter") #Removes before/after treatments here. (DR: might later recover for fancy statistics?)
 
 ```
+
 ## Second ask
 ```{r}
 NonstudentsSecondAsk$Finished<-as.logical(NonstudentsSecondAsk$Finished)
@@ -110,7 +133,6 @@ VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_
 VarNames2 <- c("LinguistTestAllusion" ,"ImportantIndependence","ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate")
 
 VarNames <- c(VarNames1,VarNames2)
-
 
 AskData <- select(AskData, keepVars)
 
