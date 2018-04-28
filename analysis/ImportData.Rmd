@@ -44,16 +44,16 @@ file.copy(file.path(data_archive,list_of_files), data_build)
 *DR: are these importing as tibbles?*
 
 ```{r message=FALSE, warning=FALSE}
-StudentsFirstAsk <- read_csv("Data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("Data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
+StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
-col_names <- names(read_csv("Data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
-NonstudentsFirstAsk <- read_csv("Data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
-NonstudentsSecondAsk <- read_csv("Data/NonstudentsSecondAsk.csv")
+NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
+NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 ```
 
-*DR: I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
+*DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
 
 ## First ask
 
@@ -119,7 +119,6 @@ VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_
 VarNames2 <- c("LinguistTestAllusion" ,"ImportantIndependence","ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate")
 
 VarNames <- c(VarNames1,VarNames2)
-
 
 AskData <- select(AskData, keepVars)
 

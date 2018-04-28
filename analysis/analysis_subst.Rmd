@@ -11,14 +11,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 We will perform standard parametric and nonparametric statistical analyses on full relevant samples, as well as testing for differences between subsets mentioned below.  
 
-As treatments are administered randomly,  and by design orthogonally to one another, we will first report statistical test without controls, particularly Fisher's exact test (for categorical outcomes and treatments) and Wilcoxon rank-sum test for continuous outcome variables.
+As treatments are administered randomly, and by design orthogonally to one another, we will first report statistical test without controls, particularly Fisher's exact test (for categorical outcomes and treatments) and Wilcoxon rank-sum test for continuous outcome variables.
 
 
 ```{r Summary statistics}
 
 ```
 
-PAP: If the data suggests strong  departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
+PAP: If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
 
 ```{r Diagnostic tests}
 
