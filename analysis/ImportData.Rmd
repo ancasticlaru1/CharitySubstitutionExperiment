@@ -169,8 +169,23 @@ AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
 
 mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
 
+
+
 # Save merged data
 write_csv(AskData, "../output/AskData.csv") 
 
 
 ```
+# TODO to make the data tidy
+
+Our data is not tidy yet for the analysis. We need to make the dataset longer with the variable "Donation" as the main variable and Ask $\in {1,2}$ to indicate first and second ask and the charity they could donate to. 
+
+We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, ns1_don_dom_ha, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha
+
+The trick shall work with the function gather()
+
+```{r}
+AskData %>% gather(key = "AskCharity", value = "Donation", c(s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha), na.rm = TRUE ) %>% select(c(AskCharity,Donation))
+```
+
+@DR 
