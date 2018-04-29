@@ -21,7 +21,7 @@ install.packages(c(
 
 ```
 
->>>>>>> c4aba5ad574f341c1c2b79e8493af2567f728d57
+
 ```{r message=FALSE, warning=FALSE}
 # library(tidyverse)
 library("dplyr")
@@ -186,6 +186,11 @@ The trick shall work with the function gather()
 
 ```{r}
 AskData %>% gather(key = "AskCharity", value = "Donation", c(s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha), na.rm = TRUE ) %>% select(c(AskCharity,Donation))
+
+AskData %>% mutate(Stage = ifelse(AskCharity == "s1_don_int_ha", "First","Second"))
+
+
+
 ```
 
 @DR 
