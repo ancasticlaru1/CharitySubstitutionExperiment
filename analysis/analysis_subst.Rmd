@@ -21,8 +21,15 @@ We present summary statistics of the donation incidence, levels, and distributio
 
 
 ```{r Summary statistics}
+# Define the categorical variables
+varsCat <- AskData %>% select(Q174,Q175) %>% as.data.frame()
+capCat  <- "First Randmomization table"
 
+# add the group =  option in order to compare between the treatments
 
+RandomizationTableCat <- tableNominal(vars = vars1, cap = cap1, vertical = FALSE, lab = "tab:randtable", longtable = TRUE, booktabs = TRUE)
+
+ tableContinuous()
 ```
 
 PAP: 
