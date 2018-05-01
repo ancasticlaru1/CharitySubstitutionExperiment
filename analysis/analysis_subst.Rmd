@@ -11,9 +11,13 @@ library(reporttools)
 
 ##Background: summary statistics and diagnostics
 
-We will perform standard parametric and nonparametric statistical analyses on full relevant samples, as well as testing for differences between subsets mentioned below.  
+(Note: much of this discussion is copied from the Pre-analysis plan (PAP); see analysisplan_substn_excerpt_comments.md)
 
-As treatments are administered randomly, and by design orthogonally to one another, we will first report statistical test without controls, particularly Fisher's exact test (for categorical outcomes and treatments) and Wilcoxon rank-sum test for continuous outcome variables.
+R: suggest following changes: First two paragraphs of the  Background I would shift as first paragraph of Main comparison (otherwise I do not see a difference in summary statistics and Main comparisons (edited)
+For summary statistics I would just 
+
+
+We present summary statistics of the donation incidence, levels, and distribution by charity and treatment, as well as key demographics of our population(s) 
 
 
 ```{r Summary statistics}
@@ -21,7 +25,10 @@ As treatments are administered randomly, and by design orthogonally to one anoth
 
 ```
 
-PAP: If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
+PAP: 
+> If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
+
+We focus these tests on the summary statistics presented above. (Donation levels by charity and treatment, demographics of our population(s))
 
 ```{r Diagnostic tests}
 
@@ -29,15 +36,24 @@ PAP: If the data suggests strong departures from the  linear or exponential mode
 
 ##Main comparisons
 
-PAP: We will test for differences in the level and incidence of contributions at the *second intervention* (for the nonstudents this is via the Omnibus; for the Students, this is via the employability survey), between:
+PAP:
 
-1. 'No ask' vs 'some previous ask'
-2. 'Previous ask for similar charity' vs 'Previous ask for distinct charity'
-3. 'Previous ask for similar charity in poverty domain' vs 'Previous ask for similar charity in health domain'
-4. Recent previous ask (based on time email was sent to participant) versus less recent ask (we will fit a model of 'impact of delay on later contribution')
+> We will perform standard parametric and nonparametric statistical analyses on full relevant samples, as well as testing for differences between subsets mentioned below.  
 
-For 2-4, we will also test for differences in differences, e.g., we will test whether those who are asked to donate to a similar charity increase or decrease their donations (between the 2 time intervals) more than those asked to donate to a distinct charity.
+> As treatments are administered randomly, and by design orthogonally to one another, we will first report statistical test without controls, particularly Fisher's exact test (for categorical outcomes and treatments) and Wilcoxon rank-sum test for continuous outcome variables.
 
+PAP: 
+
+> We will test for differences in the level and incidence of contributions at the *second intervention* (for the nonstudents this is via the Omnibus; for the Students, this is via the employability survey), between:
+
+> 1. 'No ask' vs 'some previous ask'
+> 2. 'Previous ask for similar charity' vs 'Previous ask for distinct charity'
+> 3. 'Previous ask for similar charity in poverty domain' vs 'Previous ask for similar charity in health domain'
+> 4. Recent previous ask (based on time email was sent to participant) versus less recent ask (we will fit a model of 'impact of delay on later contribution')
+
+> For 2-4, we will also test for differences in differences, e.g., we will test whether those who are asked to donate to a similar charity increase or decrease their donations (between the 2 time intervals) more than those asked to donate to a distinct charity.
+
+*Ex post update:*  The nonstudent response was small, and we were required to contact all students simultaneously; thus we have little power to distinguish the 'relative timing' effects.
 
 ```{r Statistical tests without controls}
 
