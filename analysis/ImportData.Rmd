@@ -10,8 +10,6 @@ output:
 
 # Install packages
 
-<<<<<<< HEAD
-=======
 ```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, include=FALSE}
 install.packages(c(
     "tidyverse",
@@ -21,7 +19,10 @@ install.packages(c(
 
 ```
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cf4e71e094e2feeed57705cedb67b38191dd2f4a
 ```{r message=FALSE, warning=FALSE}
 # library(tidyverse)
 library("dplyr")
@@ -47,15 +48,6 @@ library("readr")
 *DR: are these importing as tibbles?* GR: yes, everything is tibble here
 
 ```{r message=FALSE, warning=FALSE}
-<<<<<<< HEAD
-StudentsFirstAsk <- read_csv("data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
-
-col_names <- names(read_csv("data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
-
-NonstudentsFirstAsk <- read_csv("data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
-NonstudentsSecondAsk <- read_csv("data/NonstudentsSecondAsk.csv")
-=======
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
 StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
@@ -63,7 +55,13 @@ col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR:
 
 NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
 NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
->>>>>>> c4aba5ad574f341c1c2b79e8493af2567f728d57
+StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
+StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+
+col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+
+NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
+NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 ```
 
 *DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
@@ -157,11 +155,9 @@ varsReplace <- c("SEX", "BIRTH", "RACE")#, "RELIG", "SINGLE", "UNI STDNT","STUDI
 varsKeepReplace <- c("Gender2", "BirthData","Ethnicity")#, "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3")
 
 
-
 IterateReplace <- function(rd,kd) {
   AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd))
 }
-
 
 IterateReplace("Gender2","SEX")
 
