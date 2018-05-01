@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(reporttools)
 ```
 
 ##Background: summary statistics and diagnostics
@@ -16,6 +17,7 @@ As treatments are administered randomly, and by design orthogonally to one anoth
 
 
 ```{r Summary statistics}
+
 
 ```
 
