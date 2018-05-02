@@ -180,13 +180,14 @@ We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_do
 The trick shall work with the function gather()
 
 ```{r}
-AskData <- AskData %>% gather(key = "AskCharity", value = "Donation", c(s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha), na.rm = TRUE ) 
+AskData <- AskData %>% gather(key = "AskCharity", value = "Donation", c("firstasktreat"), na.rm = TRUE ) 
 
 AskData <- AskData %>% mutate(Stage = case_when(AskCharity == "s1_don_int_ha" ~ "First",
-                                                AskCharity == "ns1_donint_ha" ~ "First"))
+                                                AskCharity == "ns1_donint_ha" ~ "First"
+                                                ))
 
 select(AskData,Stage)
-
+select(AskData,AskCharity)
 ```
 
 @DR 
