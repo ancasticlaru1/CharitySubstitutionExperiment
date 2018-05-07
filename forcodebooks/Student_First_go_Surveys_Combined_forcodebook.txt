@@ -1,0 +1,2217 @@
+Student (First go) Surveys Combined
+
+
+Start of Block: Survey2 Introduction
+
+s_intro_50pct Thank you for participating in the ESSExLab Omnibus survey. 
+  
+ If you complete this survey, you have a 50% chance of winning a œ10 Amazon voucher. After 
+you complete this survey, we will reveal whether you have won this prize and explain how to 
+claim it. 
+
+End of Block: Survey2 Introduction
+
+Start of Block: Omnibus_introduction_norewardsmentioned
+
+Q173 Please read the following terms carefully. 
+    
+  
+ESSEXLab Omnibus Survey   
+The ESSEXLab Omnibus survey contains both demographic questions and common 
+psychological scales.  We are collecting this data on members of our recruitment database to 
+save both you and our researchers time in the lab and during online surveys by storing the data 
+and linking it to future studies. 
+ 
+ 
+Demographic information will be used to update your profile in the ESSEXLab participant 
+database.  You may edit this data at any time by signing into your participant account at 
+www.essexlab.essex.ac.uk/hroot    
+ 
+The other information collected in the Omnibus survey will be provided to researchers for use in 
+their individual studies, linked by an anonymous ID code.  The ESSEXLab team will not provide 
+any identifying information to researchers, only the data from the Omnibus survey with your 
+anonymous ID code.    
+    
+Your participation in this study is purely voluntary, and you may withdraw your participation or 
+your data at any time without any penalty to you.   If you wish to do so, please contact the 
+Laboratory Manager (essexlab@essex.ac.uk).  
+     
+Data Protection: 
+The participant database is stored in the Data Archive's secure servers, which are certified to 
+ISO 27001, the international security standard. Decisions taken by participants during 
+experimental sessions will be recorded by the computer software. These decisions will not be 
+linked with your personal data stored on the ESSEXLab Online Recruitment System. Unless 
+otherwise stated during the session, your choices during the experiment will be anonymous, and 
+payments will be made privately and confidentially. 
+    
+All research done in the Lab has passed ethical requirements, including requirements for 
+confidentiality. See the University of Essex's ethical procedures. Participation in the ESSEXLab 
+Omnibus is optional, but you may be invited to fewer experiments if you do not and researchers 
+are interested in using the Omnibus as part of their research study. You are entitled to request 
+that your data held as part of the ESSEXLab participant database or ESSEXLab Omnibus be 
+removed at any time.  To do so, please contact the Laboratory Manager 
+(essexlab@essex.ac.uk).     
+ 
+
+
+ 
+
+Q174 I understand that ESSEXLab will store my data securely and consent that this may be 
+linked anonymously to future studies conducted by ESSEXLab researchers in which I 
+participate.  
+  
+[Note:  you must agree to participate]
+o	Agree  (1) 
+o	Disagree  (2) 
+
+
+
+Q175 I have read the above terms and I agree to participate in the Omnibus survey. 
+ 
+ 
+[Note:  you must agree to participate]
+o	Agree  (1) 
+o	Disagree  (2) 
+
+Skip To: End of Survey If I have read the above terms and I agree to participate in the Omnibus survey. 
+[Note:  you must ag... = Disagree
+End of Block: Omnibus_introduction_norewardsmentioned
+
+Start of Block: Basic Demographic Information
+
+INS Thank you for choosing to complete the ESSEXLab Omnibus survey!  We will begin by 
+asking you some basic background information about yourself.
+
+
+
+SEX What is your Gender?
+o	Male  (1) 
+o	Female  (2) 
+o	Other  (3) 
+
+
+ 
+
+BIRTH What is your date of birth? (dd/mm/yyyy)
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+RACE What is your ethnicity? 
+o	Arab  (1) 
+o	Black African  (2) 
+o	Black Caribbean  (3) 
+o	Eastern Asian/Pacific Islander  (4) 
+o	Indian  (5) 
+o	Mixed  (6) 
+o	White  (7) 
+o	Other  (8) 
+
+
+Page Break
+
+?
+
+RELIG What is your religion?
+o	Agnostic  (1) 
+o	Atheist  (2) 
+o	Buddhist  (3) 
+o	Christian  (4) 
+o	Hindu  (5) 
+o	Muslim  (6) 
+o	Other  (7) 
+
+
+Page Break
+
+?
+
+SINGLE What is your marital status?
+o	Single  (1) 
+o	Married  (2) 
+o	Divorced/Separated  (3) 
+
+
+Page Break
+
+?
+
+UNI STDNT Are you a student at the University of Essex?
+o	Yes  (1) 
+o	No  (2) 
+
+
+Display This Question:
+    If Are you a student at the University of Essex? = Yes
+
+STUDIES What is your course of studies?
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+PREV PAR Have you ever participated in an economic experiment?
+o	Yes  (1) 
+o	No  (2) 
+
+
+
+EXP PREF What is your preference for participating in experiments?
+o	Online Only  (1) 
+o	In the Lab Only  (2) 
+o	I'm open to both Online and In-Lab Experiments  (3) 
+
+End of Block: Basic Demographic Information
+
+Start of Block: Family Structure
+
+INS Next, we would like a little background about your family.
+
+
+
+MOMJOB What is your mother's occupation?  If she is retired or deceased, what was her 
+occupation before retirement?  
+o	Construction, Extraction, and maintenance  (1) 
+o	Farming, Fishing, and Forestry  (2) 
+o	Government  (3) 
+o	Management, Professional, and related  (4) 
+o	Production, Transportation, and Material Moving  (5) 
+o	Sales and Office  (6) 
+o	Service  (7) 
+o	Unemployed  (8) 
+o	Homemaker  (10) 
+o	Other  (9) 
+
+
+Page Break
+
+?
+
+DADJOB What is your father's occupation?   If he is retired or deceased, what was his 
+occupation before retirement?  
+o	Construction, Extraction, and maintenance  (1) 
+o	Farming, Fishing, and Forestry  (2) 
+o	Government  (3) 
+o	Management, Professional, and related  (4) 
+o	Production, Transportation, and Material Moving  (5) 
+o	Sales and Office  (6) 
+o	Service  (7) 
+o	Unemployed  (8) 
+o	Homemaker  (10) 
+o	Other  (9) 
+
+
+Page Break
+
+?
+
+MOMEDUC What level of formal education did your mother achieve? 
+o	Secondary Education (GCSE/O-Levels) or below  (9) 
+o	    Post-Secondary Education (College, A-Levels, NVQ3 or below, or similar)  (10) 
+o	    Vocational Qualification (Diploma, Certificate, BTEC, NVQ 4 and above, or similar)  
+(11) 
+o	    Undergraduate Degree (BA, BSc etc.)  (12) 
+o	    Post-graduate Degree (MA, MSc etc.)  (13) 
+o	    Doctorate (PhD)  (14) 
+
+
+Page Break
+
+?
+
+DADEDUC What level of formal education did your Father achieve?
+o	Secondary Education (GCSE/O-Levels) or below  (8) 
+o	    Post-Secondary Education (College, A-Levels, NVQ3 or below, or similar)  (9) 
+o	    Vocational Qualification (Diploma, Certificate, BTEC, NVQ 4 and above, or similar)  
+(10) 
+o	    Undergraduate Degree (BA, BSc etc.)  (11) 
+o	    Post-graduate Degree (MA, MSc etc.)  (12) 
+o	Doctorate (PhD)  (13) 
+
+
+Page Break
+
+?
+ 
+
+SIBLINGS How many siblings do you have?
+    ________________________________________________________________
+
+
+Page Break
+
+?
+Display This Question:
+    If If How many siblings do you have? Text Response Is Greater Than  0
+ 
+
+SIBORDER How many of your siblings are older than you?
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+CHILD Do you have any children?
+o	Yes  (1) 
+o	No  (2) 
+
+Skip To: End of Block If Do you have any children? = No
+
+ 
+
+NUMCHILD How many children do you have?
+    ________________________________________________________________
+
+End of Block: Family Structure
+
+Start of Block: Background and Nationality
+
+birth_nation Were you born in the United Kingdom?
+o	Yes  (1) 
+o	No  (2) 
+
+
+
+ABROAD Have you lived outside of the country you were born in?
+o	Yes  (1) 
+o	No  (2) 
+
+
+Display This Question:
+    If Were you born in the United Kingdom? = No
+
+NATION In what country were you born?
+    ________________________________________________________________
+
+
+Display This Question:
+    If Were you born in the United Kingdom? = No
+ 
+
+ENGYEARS How many years have you lived in the United Kingdom? 
+    ________________________________________________________________
+
+
+
+FIRSTLANG Is English your first language?
+o	Yes  (1) 
+o	No  (2) 
+
+
+Page Break
+
+?
+Display This Question:
+    If Is English your first language? = No
+
+FLUENT Would you consider yourself a fluent English speaker?
+o	Yes  (1) 
+o	No  (2) 
+
+
+Display This Question:
+    If Is English your first language? = No
+
+HOMELANG What was the main language spoken at home during your childhood?
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+LANGS Can you speak any other languages? If so, please list them below separated by 
+commas. 
+    ________________________________________________________________
+
+
+Page Break
+
+?
+Display This Question:
+    If Have you lived outside of the country you were born in? = Yes
+
+OTR_COUNTRY1 What other countries have you lived in? Please list the country or countries.
+o	Country #1  (1) ________________________________________________
+o	Country #2  (2) ________________________________________________
+o	Country #3  (3) ________________________________________________
+
+
+Display This Question:
+    If Have you lived outside of the country you were born in? = Yes
+
+OTR_COUNTRY2 How long did you live in the country or countries listed above?  Please 
+answer in years.
+o	${OTR_COUNTRY1/ChoiceTextEntryValue/1}  (1) 
+________________________________________________
+o	${OTR_COUNTRY1/ChoiceTextEntryValue/2}  (2) 
+________________________________________________
+o	${OTR_COUNTRY1/ChoiceTextEntryValue/3}  (3) 
+________________________________________________
+
+End of Block: Background and Nationality
+
+Start of Block: Personality Attributes
+
+PERATT Below are a number of personality traits that may or may not apply to you. Please use 
+the scales provided to indicate the extent to which you agree or disagree with the corresponding 
+statement. You should rate the extent to which the pair of traits applies to you, even if one 
+characteristic applies more strongly than the other.
+
+
+ 
+
+ATTRIBUTES I see myself as:  
+
+Disagree 
+Strongly 
+(1)
+Disagree 
+Moderately 
+(2)
+Disagree 
+a little 
+(3)
+Neither 
+agree 
+nor 
+disagree 
+(4)
+Agree 
+a little 
+(5)
+Agree 
+Moderately 
+(6)
+Agree 
+Strongly 
+(7)
+Extroverted, 
+Enthusiastic 
+(1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Critical, 
+Quarrelsome 
+(2) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Dependable, 
+Self-
+disciplined 
+(3) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Anxious, 
+Easily Upset 
+(4) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Open to new 
+experiences, 
+Complex (5) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Reserved, 
+Quiet (6) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Sympathetic, 
+Warm (7) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Disorganized, 
+Careless (8) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Calm, 
+Emotionally 
+Stable (9) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Conventional, 
+Uncreative 
+(10) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+End of Block: Personality Attributes
+
+Start of Block: Values Inventory
+
+VALS On a scale from 0 to 8, with 0 being of no importance to your principles and 8 being of 
+supreme importance, please indicate your feelings toward the following values. 
+
+
+
+POWER Power; social power, authority, wealth
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+ACHIEVE Achievement; success, capability, ambition, influence on people and events
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+HEDON Hedonism; gratification of desires, enjoyment in life, self-indulgence
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+STIMUL Stimulation; daring, a varied and challenging life, an exciting life
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+SELFD Self-Direction; creativity, freedom, curiosity, independence, choosing one's own goals
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+VALS2 On a scale from 0 to 8, with 0 being of no importance to your principles and 8 being of 
+supreme importance, please indicate your feelings toward the following values. 
+
+
+
+UNIVE Universalism; broad-mindedness, beauty of nature and arts, social justice, a world at 
+peace, equality, unity with nature, environmental protection
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+BENEV Benevolence; helpfulness, honesty, forgiveness, loyalty, responsibility
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+TRADI Tradition; respect for tradition, humbleness, accepting one's portion in life, devotion, 
+modesty
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+CONFO Conformity; obedience, honoring parents and elders, self-discipline, politeness
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+
+
+SECUR Security; national security, family security, social order, cleanliness, reciprocation of 
+favors
+o	No Importance  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	5  (6) 
+o	6  (7) 
+o	7  (8) 
+o	Supreme Importance  (9) 
+
+End of Block: Values Inventory
+
+Start of Block: Feelings on Self-Esteem
+
+ESTEEM For the following questions, please indicate how strongly you agree with each 
+statement by selecting one of the possible responses.
+
+
+
+WORTH I feel that I am a person of worth,at least on an equal plane with others.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+GOODQ I feel that I have a number of good qualities.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+FAIL All in all, I am inclined to feel that I am a failure.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+COMPAR I am able to do things as well as most other people.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+PROUD I feel I do not have much to be proud of.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+SEINST2 For the following questions, please indicate how strongly you agree with each 
+statement by selecting one of the possible responses.
+
+
+
+POSAT I take a positive attitude toward myself.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+SATIS On the whole, I am satisfied with myself.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+RESPECT I wish I could have more respect for myself.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+USELESS I certainly feel useless at times.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+
+
+NOGOOD At times I think I am no good at all.
+o	Strongly Disagree  (1) 
+o	Disagree  (2) 
+o	Agree  (3) 
+o	Strongly Agree  (4) 
+
+End of Block: Feelings on Self-Esteem
+
+Start of Block: Appraisal of Crystallized Intelligence
+
+CRYINT In the following questions, a word will be provided for you. Please answer by selecting 
+a word from the list which most closely matches the meaning of the word provided. 
+
+
+
+SPACE Space
+o	School  (1) 
+o	Noon  (2) 
+o	Captain  (3) 
+o	Room  (4) 
+o	Board  (5) 
+o	Don't know  (6) 
+
+
+
+BROAD Broaden
+o	Efface  (1) 
+o	Make level  (2) 
+o	Elapse  (3) 
+o	Embroider  (4) 
+o	Widen  (5) 
+o	Don't know  (6) 
+
+
+
+EMANA Emanate
+o	Populate  (1) 
+o	Free  (2) 
+o	Prominent  (3) 
+o	Rival  (4) 
+o	Come  (5) 
+o	Don't know  (6) 
+
+
+
+EDIBL Edible
+o	Auspicious  (1) 
+o	Elligible  (2) 
+o	Fit to eat  (3) 
+o	Sagacious  (4) 
+o	Able to speak  (5) 
+o	Don't know  (6) 
+
+
+
+ANIMO Animosity
+o	Hatred  (1) 
+o	Animation  (2) 
+o	Disobedience  (3) 
+o	Diversity  (4) 
+o	Friendship  (5) 
+o	Don't know  (6) 
+
+
+
+EMINS2 In the following questions, a word will be provided for you. Please answer by selecting 
+a word from the list which most closely matches the meaning of the word provided. 
+
+
+
+PACT Pact
+o	Puissance  (1) 
+o	Remonstrance  (2) 
+o	Agreement  (3) 
+o	Skillet  (4) 
+o	Pressure  (5) 
+o	Don't know  (6) 
+
+
+
+CLOIS Cloistered
+o	Miniature  (1) 
+o	Bunched  (2) 
+o	Arched  (3) 
+o	Malady  (4) 
+o	Secluded  (5) 
+o	Don't know  (6) 
+
+
+
+CAPRI Caprice
+o	Value  (1) 
+o	A star  (2) 
+o	Grimace  (3) 
+o	Whim  (4) 
+o	Inducement  (5) 
+o	Don't know  (6) 
+
+
+
+ACCUS Accustom
+o	Disappoint  (1) 
+o	Customary  (2) 
+o	Encounter  (3) 
+o	Get used to  (4) 
+o	Business  (5) 
+o	Don't know  (6) 
+
+
+
+ALLUS Allusion
+o	Reference  (1) 
+o	Dream  (2) 
+o	Eulogy  (3) 
+o	Illusion  (4) 
+o	Aria  (5) 
+o	Don't know  (6) 
+
+End of Block: Appraisal of Crystallized Intelligence
+
+Start of Block: Authoritarianism
+
+Q180 For the following questions, please indicate which of the two traits you think is MORE 
+important in children.  If you feel they are equally important, imagine that you could only choose 
+one.
+
+
+
+auth1 Which do you believe is more important?
+o	Independence  (1) 
+o	Respect for their elders  (2) 
+
+
+
+auth2 Which do you believe is more important?
+o	Curiosity  (1) 
+o	Good manners  (2) 
+
+
+
+auth3 Which do you believe is more important?
+o	Self-reliance  (1) 
+o	Obedience  (2) 
+
+
+
+auth4 Which do you believe is more important?
+o	Being considerate  (1) 
+o	Being well-behaved  (2) 
+
+End of Block: Authoritarianism
+
+Start of Block: Reading the Mind in the Eyes
+
+EYES For the following questions choose which word best describes what the person in the 
+picture is thinking or feeling. You may feel that more than one word is applicable but please 
+choose just one word, the word you consider to be most suitable. Before making your choice, 
+make sure that you have read all 4 words. You should try to do the task as quickly as possible 
+but you will not be timed. 
+
+
+
+EYES1  
+o	Playful  (1) 
+o	Comforting  (2) 
+o	Irritated  (3) 
+o	Bored  (4) 
+
+
+
+EYES2 
+o	Terrified  (1) 
+o	Upset  (2) 
+o	Arrogant  (3) 
+o	Annoyed  (4) 
+
+
+
+EYES3 
+o	Joking  (1) 
+o	Insisting  (2) 
+o	Amused  (3) 
+o	Relaxed  (4) 
+
+
+
+EYES4 
+o	Irritated  (1) 
+o	Sarcastic  (2) 
+o	Worried  (3) 
+o	Friendly  (4) 
+
+
+
+EYES5 
+o	Despondent  (1) 
+o	Relieved  (2) 
+o	Shy  (3) 
+o	Excited  (4) 
+
+
+
+EYES6 
+o	Doubtful  (1) 
+o	Affectionate  (2) 
+o	Playful  (3) 
+o	Aghast  (4) 
+
+
+
+EYESINS2 For the following questions choose which word best describes what the person in 
+the picture is thinking or feeling. You may feel that more than one word is applicable but please 
+choose just one word, the word you consider to be most suitable. Before making your choice, 
+make sure that you have read all 4 words. You should try to do the task as quickly as possible 
+but you will not be timed. 
+
+
+
+EYES7 
+o	Terrified  (1) 
+o	Amused  (2) 
+o	Regretful  (3) 
+o	Flirtatious  (4) 
+
+
+
+EYES8 
+o	Decisive  (1) 
+o	Amused  (2) 
+o	Bored  (3) 
+o	Aghast  (4) 
+
+
+
+EYES9 
+o	Indifferent  (1) 
+o	Embarrassed  (2) 
+o	Skeptical  (3) 
+o	Dispirited  (4) 
+
+
+
+EYES10 
+o	Arrogant  (1) 
+o	Graceful  (2) 
+o	Sarcastic  (3) 
+o	Tentative  (4) 
+
+
+
+EYES11 
+o	Decisive  (1) 
+o	Anticipating  (2) 
+o	Threatening  (3) 
+o	Shy  (4) 
+
+
+
+EYES12 
+o	Alarmed  (1) 
+o	Shy  (2) 
+o	Hostile  (3) 
+o	Anxious  (4) 
+
+
+
+EYEINS3 For the following questions choose which word best describes what the person in the 
+picture is thinking or feeling. You may feel that more than one word is applicable but please 
+choose just one word, the word you consider to be most suitable. Before making your choice, 
+make sure that you have read all 4 words. You should try to do the task as quickly as possible 
+but you will not be timed. 
+
+
+
+EYES13 
+o	Joking  (1) 
+o	Cautious  (2) 
+o	Arrogant  (3) 
+o	Reassuring  (4) 
+
+
+
+EYES14 
+o	Grateful  (1) 
+o	Flirtatious  (2) 
+o	Hostile  (3) 
+o	Disappointed  (4) 
+
+
+
+EYES15 
+o	Interested  (1) 
+o	Joking  (2) 
+o	Affectionate  (3) 
+o	Contented  (4) 
+
+
+
+EYES16 
+o	Ashamed  (1) 
+o	Confident  (2) 
+o	Joking  (3) 
+o	Dispirited  (4) 
+
+
+
+EYES17 
+o	Impatient  (1) 
+o	Aghast  (2) 
+o	Irritated  (3) 
+o	Reflective  (4) 
+
+
+
+EYES18 
+o	Serious  (1) 
+o	Ashamed  (2) 
+o	Bewildered  (3) 
+o	Alarmed  (4) 
+
+End of Block: Reading the Mind in the Eyes
+
+Start of Block: Econ-favored questions
+
+RISK In general, how willing or unwilling are you to take risks? Please provide an answer 
+between 0 and 10. An answer of 0 indicates you are "completely unwilling to take risks" while an 
+answer of 10 indicates you are "very willing to take risks".
+o	Completely unwilling to take risks  (1) 
+o	1  (2) 
+o	2  (3) 
+o	3  (4) 
+o	4  (5) 
+o	Risk Neutral  (6) 
+o	6  (7) 
+o	7  (8) 
+o	8  (9) 
+o	9  (10) 
+o	Very willing to take risks  (11) 
+
+
+Page Break
+
+?
+
+trust Generally speaking would you say that most people can be trusted, or that you can't be too 
+careful in dealing with people?
+o	Most people can be trusted  (1) 
+o	Can't be too careful  (2) 
+o	Depends  (3) 
+
+
+Page Break
+
+?
+
+decisionmode Think of when you make a decision. Generally speaking, do you tend to decide 
+rather quickly relying mostly on your intuition or rather do you tend to think accurately about all 
+possible alternatives and consequences of your choice, taking as much time as needed before 
+reaching a final decision? 
+  
+o	I decide very rapidly on the basis of my intuition  (1) 
+o	I partly ponder and partly rely on intuition  (3) 
+o	Not sure or don't want to answer  (4) 
+
+
+Page Break
+
+?
+
+likert_time_recip Please again indicate your answer on a scale from 0 to 10, where 0 means you 
+are "completely unwilling to do so" and a 10 means you are "very willing to do so".  
+  
+ 
+
+
+completely 
+unwilling 
+to do so 
+(1)
+1 (2)
+2 (3)
+3 (4)
+4 (5)
+5 (6)
+6 (7)
+7 (8)
+8 (9)
+9 
+(10)
+very 
+willing 
+to do 
+so 
+(11)
+How 
+willing are 
+you to 
+give up 
+something 
+that is 
+beneficial 
+for you 
+today in 
+order to 
+benefit 
+more from 
+that in the 
+future? (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+How 
+willing are 
+you to 
+punish 
+someone 
+who treats 
+you 
+unfairly, 
+even if 
+there may 
+be a cost 
+for you? 
+(2) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+How 
+willing are 
+you to 
+punish 
+someone 
+who treats 
+others 
+unfairly, 
+even if 
+there may 
+be a cost 
+for you (3) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+End of Block: Econ-favored questions
+
+Start of Block: Political Affiliation, Impairment
+
+INS Almost done!  A few final questions.
+
+
+
+pol_interest How interested would you say you are in politics?  
+o	Very interested  (1) 
+o	Somewhat interested  (2) 
+o	Not very interested  (3) 
+o	Not at all interested  (4) 
+
+
+Page Break
+
+?
+
+POLIT In political matters, people talk of "the left" and "the right." How would you place your 
+views on 
+this scale, generally speaking? 
+o	Far Left  (1) 
+o	2  (2) 
+o	3  (3) 
+o	4  (4) 
+o	5  (5) 
+o	6  (6) 
+o	7  (7) 
+o	8  (8) 
+o	9  (9) 
+o	Far Right  (10) 
+
+
+Page Break
+
+?
+ 
+
+social_ideo Please indicate for each of the following actions whether you think it can always be 
+justified, never be 
+justified, or something in between  
+
+Never 
+justifiable 
+(1)
+2 (2)
+3 (3)
+4 (4)
+5 (5)
+6 (6)
+7 (7)
+8 (8)
+9 (9)
+Always 
+Justifiable 
+(10)
+Homosexuality 
+(1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Prostitution (2) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Abortion (3) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Divorce (4) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+Sex before 
+marriage (5) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+
+ins Now we would like you to tell us your views on various issues. How would you place your 
+views on this scale below?  
+
+
+
+ineq Which statement do you agree with more?
+o	Incomes should be made more equal  (1) 
+o	2  (2) 
+o	3  (3) 
+o	4  (4) 
+o	5  (5) 
+o	6  (6) 
+o	7  (7) 
+o	8  (8) 
+o	9  (9) 
+o	We need larger income differences as incentives for individual effort  (10) 
+
+
+
+ownership Which statement do you agree with more?
+o	Private ownership of business and industry should be increased  (1) 
+o	2  (2) 
+o	3  (3) 
+o	4  (4) 
+o	5  (5) 
+o	6  (6) 
+o	7  (7) 
+o	8  (8) 
+o	9  (9) 
+o	Government ownership of business and industry should be increased  (10) 
+
+
+
+merit Which statement do you agree with more?
+o	In the long run, hard work usually brings a better life  (1) 
+o	2  (2) 
+o	3  (3) 
+o	4  (4) 
+o	5  (5) 
+o	6  (6) 
+o	7  (7) 
+o	8  (8) 
+o	9  (9) 
+o	Hard work doesn't generally bring success-it's more a matter of luck and connections  
+(10) 
+
+
+Page Break
+
+?
+
+IMPAIR Are you in anyway impaired in hearing or sight?
+o	Yes  (1) 
+o	No  (2) 
+
+
+Display This Question:
+    If Are you in anyway impaired in hearing or sight? = Yes
+
+MENT Please describe your impairment.
+    ________________________________________________________________
+    ________________________________________________________________
+    ________________________________________________________________
+    ________________________________________________________________
+    ________________________________________________________________
+
+End of Block: Political Affiliation, Impairment
+
+Start of Block: Survey2 beforewin
+
+Q283 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+sbeforeask Before we reveal if you have won the œ10 Amazon voucher...  We are giving you 
+the opportunity to donate from your prize to one of two charities: 
+ either Oxfam or the British Heart Foundation.  For every pound you donate, we will add an 
+extra 25p.  Please click on the images below for further information about these charities (links 
+will open in a new tab). 
+           
+ IF you win the œ10 Amazon voucher, WOULD you be willing to donate to one of the above 
+charities?     This will not affect your chance of winning, as the prize winners have already been 
+chosen through a random draw.          If you win, your donation will be automatically deducted 
+from your prize and passed on to the charity of your choice, plus an additional 25% from our 
+own funds. Donations will be made within 14 days and receipts will be kept at the ESSExLab 
+office. We will not pass your personal information on to the charity.     Please enter the amount 
+you would like to donate (if anything) if you win the prize, in the box below. (Enter a number 
+between 0 and 10). 
+    ________________________________________________________________
+
+
+Display This Question:
+    If If Before we reveal if you have won the œ10 Amazon voucher... We are giving you the opportunity 
+to d... Text Response Is Greater Than  0
+
+choosechar Please select the charity you would like to donate to, if you win
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+
+Page Break
+
+?
+ 
+
+winscreen  
+Congratulations you have WON a œ10 Amazon gift certificate!   
+ 
+  
+ You must continue to the end to be certain your response is recorded,    
+and to be certain that you can claim your prize. 
+  
+ Prizes will be emailed to you, minus any amount you chose to donate. Donations will be 
+matched with an additional 25% from our own funds, will  made  within 14 days and receipts will 
+be kept at the ESSExLab office.
+?	Continue  (1) 
+
+End of Block: Survey2 beforewin
+
+Start of Block: Survey2 afterwin
+ 
+
+winscreen  
+Congratulations you have WON a œ10 Amazon gift certificate! 
+  
+  
+ You must continue to the end to be certain your response is recorded,    
+and to be certain that you can claim your prize.   
+    
+Prizes will be emailed to you, minus any amount you chose to donate. Donations will be 
+matched with an additional 25% from our own funds, will made within 14 days and receipts will 
+be kept at the ESSExLab office.    
+?	Continue  (1) 
+
+
+Page Break
+
+?
+
+Q284 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+safterask Before we explain how to claim your prize...  We are giving you the opportunity to 
+donate from your prize to one of two charities: 
+ either Oxfam or the British Heart Foundation.  For every pound you donate, we will add an 
+extra 25p.  Please click on the images below for further information about these charities (links 
+will open in a new tab).   
+    
+      
+     Now that you have won the œ10 Amazon voucher WOULD you be willing to donate to one 
+of the above charities?      If you donate, your donation will be automatically deducted from your 
+prize and passed on to the charity of your choice, plus an additional 25% from our own 
+funds. Donations will be made within 14 days and receipts will be kept at the ESSExLab office. 
+We will not pass your personal information on to the charity.      Please enter the amount you 
+would like to donate (if anything) if you win the prize, in the box below. (Enter a number between 
+0 and 10).    
+    ________________________________________________________________
+
+
+Display This Question:
+    If If Before we explain how to claim your prize...  We are giving you the opportunity to donate from 
+your prize to one of two charities: either Oxfam or the British Heart Foundation.  For every pound you... 
+Text Response Is Greater Than  0
+
+choosechar Please select the charity you would like to donate to
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+End of Block: Survey2 afterwin
+
+Start of Block: Survey2 beforelose
+
+Q286 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+sbeforeask ${sbeforeask/QuestionText}
+    ________________________________________________________________
+
+
+Display This Question:
+    If ${q://QID22/QuestionText} =
+
+choosechar Please select the charity you would like to donate to, if you win
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+
+Page Break
+
+?
+ 
+
+losescreen  
+Sorry, you did not win the œ10 Amazon voucher. Please continue to the end to be sure your 
+omnibus survey response is registered, making you eligible for relevant EssexLab experiments.
+?	Continue  (1) 
+
+End of Block: Survey2 beforelose
+
+Start of Block: Survey2 Afterlose
+ 
+
+losenoask  
+${losescreen/QuestionText}
+?	Continue  (1) 
+
+End of Block: Survey2 Afterlose
+
+Start of Block: Survey2 happiness
+
+happytime_s50pct Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+happiness ${s1happyfirst_dom/QuestionText}
+
+Extremely 
+unhappy 
+(1)
+Moderately 
+unhappy 
+(2)
+Slightly 
+unhappy 
+(3)
+Neither 
+happy 
+nor 
+unhappy 
+(4)
+Slightly 
+happy 
+(5)
+Moderately 
+happy (6)
+Extremely 
+happy (7)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+End of Block: Survey2 happiness
+
+Start of Block: thankyou
+
+thankyou Thank you for your participation!
+
+End of Block: thankyou
+
+Start of Block: Survey 1 Introductory Question Block
+
+s1_intro Thank you for participating in the ESSEXLab Omnibus survey! This survey should take 
+15-20 minutes of your time.  If you complete this survey you will earn a œ10 Amazon voucher, 
+which we will send to your email. 
+  
+ Please press the button below to continue...
+
+End of Block: Survey 1 Introductory Question Block
+
+Start of Block: Survey1 Firstask_groupC1_domestic_happyfirst
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happyfirst_dom How would you rate your happiness at the moment?
+
+Extremely 
+unhappy 
+(1)
+Moderately 
+unhappy 
+(2)
+Slightly 
+unhappy 
+(3)
+Neither 
+happy 
+nor 
+unhappy 
+(4)
+Slightly 
+happy 
+(5)
+Moderately 
+happy (6)
+Extremely 
+happy (7)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+
+timedon Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+s1_don_dom_hb Before we continue...   
+ We are giving you the opportunity to donate from your reward to the British Heart 
+Foundation. For every pound you donate, we will add an extra 25p.  Please click on the image 
+below for further information about this charity (link will open in a new tab).            From your 
+œ10 Amazon gift certificate are you willing to donate to the British Heart Foundation?   
+ If you donate, your donation will be automatically deducted from your reward and passed on to 
+this charity, plus an additional 25% from our own funds.     Rewards will be sent and donations 
+will be made within 7 days and receipts will be kept at the ESSExLab office. We will not pass 
+your personal information on to the charity.         Please enter the amount you would like to 
+donate, if anything, in the box below. (Enter a whole number between 0 and 10; you do not 
+need to enter the œ sign.)   
+ 
+    ________________________________________________________________
+
+End of Block: Survey1 Firstask_groupC1_domestic_happyfirst
+
+Start of Block:  Survey1 Firstask_groupC1_domestic_happyafter
+
+time_s1_don_dom Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+s1_don_dom_ha ${s1_don_dom_hb/QuestionText}
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happyafter_dom ${s1happyfirst_dom/QuestionText}
+
+Extremely 
+unhappy 
+(1)
+Moderately 
+unhappy 
+(2)
+Slightly 
+unhappy 
+(3)
+Neither 
+happy 
+nor 
+unhappy 
+(4)
+Slightly 
+happy 
+(5)
+Moderately 
+happy (6)
+Extremely 
+happy (7)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+End of Block:  Survey1 Firstask_groupC1_domestic_happyafter
+
+Start of Block:  Survey1 Firstask_groupC1_international_happyfirst
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happyfirst_int ${s1happyfirst_dom/QuestionText}
+
+Extremely 
+unhappy 
+(1)
+Moderately 
+unhappy 
+(2)
+Slightly 
+unhappy 
+(3)
+Neither 
+happy 
+nor 
+unhappy 
+(4)
+Slightly 
+happy 
+(5)
+Moderately 
+happy (6)
+Extremely 
+happy (7)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+
+time_s1_don_int Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+s1_don_int_hb Before we continue...   
+ We are giving you the opportunity to donate from your reward to Oxfam. For every pound you 
+donate, we will add an extra 25p.  Please click on the image below for further information about 
+this charity (link will open in a new tab).   
+            From your œ10 Amazon gift certificate are you willing to donate to Oxfam?   
+ If you donate, your donation will be automatically deducted from your reward and passed on to 
+this charity, plus an additional 25% from our own funds.     Rewards will be sent and donations 
+will be made within 7 days and receipts will be kept at the ESSExLab office. We will not pass 
+your personal information on to the charity.      Please enter the amount you would like to 
+donate, if anything, in the box below. (Enter a whole number between 0 and 10; you do not 
+need to enter the œ sign.)
+    ________________________________________________________________
+
+End of Block:  Survey1 Firstask_groupC1_international_happyfirst
+
+Start of Block:  Survey1 Firstask_groupC1_international_happyafter
+
+time_s1_don_int Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+s1_don_int_ha ${s1_don_int_hb/QuestionText}
+    ________________________________________________________________
+
+
+Page Break
+
+?
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happyafter_int ${s1happyfirst_dom/QuestionText}
+
+Extremely 
+unhappy 
+(1)
+Moderately 
+unhappy 
+(2)
+Slightly 
+unhappy 
+(3)
+Neither 
+happy 
+nor 
+unhappy 
+(4)
+Slightly 
+happy 
+(5)
+Moderately 
+happy (6)
+Extremely 
+happy (7)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+End of Block:  Survey1 Firstask_groupC1_international_happyafter
+
+Start of Block: Survey1 firstask_noask_finalscreen_placebobhf
+
+timeplacebo_dom Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+placebo_bhf Please continue when you are ready...
+
+
+Page Break
+
+?
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happynoask How would you rate your happiness at the moment?
+
+Extremely 
+unhappy 
+(15)
+Moderately 
+unhappy 
+(16)
+Slightly 
+unhappy 
+(17)
+Neither 
+happy 
+nor 
+unhappy 
+(18)
+Slightly 
+happy 
+(19)
+Moderately 
+happy (20)
+Extremely 
+happy 
+(21)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+
+Q19 Thank you for completing the survey.     
+ 
+We will send your reward to your email.   
+
+End of Block: Survey1 firstask_noask_finalscreen_placebobhf
+
+Start of Block: Survey1 firstask_noask_finalscreen_placebooxfam
+
+timeplacebo_int Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+placebooxfam Please continue when you are ready...
+
+
+Page Break
+
+?
+
+timehappy Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+
+s1happynoask How would you rate your happiness at the moment?
+
+Extremely 
+unhappy 
+(15)
+Moderately 
+unhappy 
+(16)
+Slightly 
+unhappy 
+(17)
+Neither 
+happy 
+nor 
+unhappy 
+(18)
+Slightly 
+happy 
+(19)
+Moderately 
+happy (20)
+Extremely 
+happy 
+(21)
+  (1) 
+o	
+o	
+o	
+o	
+o	
+o	
+o	
+
+
+
+Page Break
+
+?
+
+Q72 Thank you for completing the survey.     
+ 
+We will send your reward to your email.   
+
+End of Block: Survey1 firstask_noask_finalscreen_placebooxfam
+
+Start of Block: Survey 1 thank you dontion
+
+Q52 Thank you for completing the survey, and thank you for making a donation. 
+  
+ You will be sent a œ${e://Field/S1Reward} Amazon gift certificate. Your donation will be passed 
+to the charity as promised, along with a 25% matching donation from our research funds. 
+     
+  
+ Rewards will be sent and donations will be made within 7 days and receipts will be kept at the 
+ESSExLab office. We will not pass your personal information on to the charity.      
+ 
+
+End of Block: Survey 1 thank you dontion
+
+Start of Block: Survey1  Thank you no donation
+
+Q20 Thank you for completing the survey.    We will send your reward to your email.    
+
+End of Block: Survey1  Thank you no donation
+
+Start of Block: survey3 - œ10 prize intro
+
+intro_ambig_10gbp Thank you for participating in the ESSExLab Omnibus survey. 
+  
+ If you complete this survey, you have a chance of winning:  	  One of thirty remaining œ10 
+Amazon vouchers.    
+
+
+
+Q40 Prizes will be chosen and emailed to the winners at the end of this Omnibus Survey 
+promotion.  
+  
+ Winners will be determined by random draw among all the participants in this part who 
+completed the omnibus survey.
+
+End of Block: survey3 - œ10 prize intro
+
+Start of Block: donatefrom10
+
+Q287 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+beforeask_from10  
+Before we finish...  We are giving you the opportunity to donate from your (potential) prize to 
+one of two charities: either Oxfam or the British Heart Foundation.  For every pound you donate, 
+we will add an extra 25p.  Please click on the images below for further information about these 
+charities (links will open in a new tab).    
+    
+     
+  
+ IF you win the œ10 Amazon voucher, WOULD you be willing to donate to one of the above 
+charities?   
+  If you donate, your donation will be automatically deducted from your prize and passed on to 
+this charity, plus an additional 25% from our own funds.     Donations will be made within 14 
+days and receipts will be kept at the ESSExLab office. We will not pass your personal 
+information on to the charity.      Please enter the amount you would like to donate, if anything, 
+in the box below. (Enter a number between 0 and 10).
+    ________________________________________________________________
+
+
+Display This Question:
+    If If Before we finish...  We are giving you the opportunity to donate from your (potential) prize to o... 
+Text Response Is Greater Than  0
+
+choosechar Please select the charity you would like to donate to, if you win
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+End of Block: donatefrom10
+
+Start of Block: survey3 - œ50 prize intro
+
+intro_ambig_50gbp Thank you for participating in the ESSExLab Omnibus survey. 
+  
+ If you complete this survey, you have a chance of winning:  	  One of six remaining œ50 
+Amazon vouchers. 
+
+
+
+Q41  
+Prizes will be chosen and emailed to the winners at the end of this Omnibus Survey promotion.  
+  
+ Winners will be determined by random draw among all the participants in this part who 
+completed the omnibus survey.
+
+End of Block: survey3 - œ50 prize intro
+
+Start of Block: donatefrom50
+
+Q288 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+beforeask_from50  
+Before we finish...  We are giving you the opportunity to donate from your (potential) prize to 
+one of two charities: either Oxfam or the British Heart Foundation.  For every pound you donate, 
+we will add an extra 25p.  Please click on the images below for further information about these 
+charities (links will open in a new tab).    
+    
+     
+  
+ IF you win the œ50 Amazon voucher, WOULD you be willing to donate to one of the above 
+charities?   
+     If you donate, your donation will be automatically deducted from your prize and passed on to 
+this charity, plus an additional 25% from our own funds.     Donations will be made within 14 
+days and receipts will be kept at the ESSExLab office. We will not pass your personal 
+information on to the charity.      Please enter the amount you would like to donate, if anything, 
+in the box below. (Enter a number between 0 and 50).
+    ________________________________________________________________
+
+
+Display This Question:
+    If If Before we finish...  We are giving you the opportunity to donate from your (potential) prize to o... 
+Text Response Is Greater Than  0
+
+Q51 Please select the charity you would like to donate to, if you win
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+End of Block: donatefrom50
+
+Start of Block: survey3 - œ50 and œ10 prizes intro
+
+intro_10and50 Thank you for participating in the ESSExLab Omnibus survey. 
+  
+ If you complete this survey, you have a chance of winning:  	One of thirty remaining œ10 
+Amazon vouchers,  	and a chance of winning one of six remaining œ50 Amazon vouchers. 
+
+
+
+Q39 Prizes will be chosen and emailed to the winners at the end of this Omnibus Survey 
+promotion.  
+  
+ Winners will be determined by random draw among all the participants in this part who 
+completed the omnibus survey.
+
+End of Block: survey3 - œ50 and œ10 prizes intro
+
+Start of Block: donatefrom10or50
+
+Q289 Timing
+First Click  (1)
+Last Click  (2)
+Page Submit  (3)
+Click Count  (4)
+
+
+ 
+
+donfrom10or50  
+Before we finish...  We are giving you the opportunity to donate from your (potential) prize to 
+one of two charities: either Oxfam or the British Heart Foundation.  For every pound you donate, 
+we will add an extra 25p.  Please click on the images below for further information about these 
+charities (links will open in a new tab).    
+    
+     
+  
+ IF you win the œ10 Amazon voucher or the œ50 Amazon voucher, WOULD you be willing to 
+donate to one of the above charities?   
+  If you donate, your donation will be automatically deducted from your prize and passed on to 
+this charity, plus an additional 25% from our own funds.     Donations will be made within 14 
+days and receipts will be kept at the ESSExLab office. We will not pass your personal 
+information on to the charity.      Please enter the amount you would like to donate, if anything, 
+in the boxes below.
+o	Please enter the amount you would like to donate (if anything) if you win the œ10 prize, in 
+the box below (Enter a number between 0 and 10).  (3) 
+________________________________________________
+o	Please enter the amount you would like to donate (if anything) if you win the œ50 prize, in 
+the box below (Enter a number between 0 and 50).  (4) 
+________________________________________________
+
+
+Display This Question:
+    If If Before we finish...&nbsp; We are giving you the opportunity to donate from your (potential) prize 
+to one of two charities: either Oxfam or the British Heart Foundation.  For every pound you donate,...  Is 
+Greater Than or Equal to  0
+    Or Before we finish...&nbsp; We are giving you the opportunity to donate from your (potential) prize 
+to one of two charities: either Oxfam or the British Heart Foundation.  For every pound you donate,...  Is 
+Greater Than  0
+
+choosecharity Please select the charity you would like to donate to, if you win
+o	Image:Oxfam logo2  (1) 
+o	Image:bhflogo.png  (2) 
+
+End of Block: donatefrom10or50
+
+
+ 
+Page of 
+
+Page 1 of 77
+
