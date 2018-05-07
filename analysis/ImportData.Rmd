@@ -19,15 +19,12 @@ install.packages(c(
 
 ```
 
-<<<<<<< HEAD
 
 =======
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library("dplyr")
+library("tidyverse")
 library("broom")
-library("tidyr")
-library("readr")
+library("dataMaid")
 ```
 
 # Data organisation
@@ -136,6 +133,8 @@ AskData <- select(AskData, keepVars)
 colnames(AskData) <- VarNames
 
 
+
+
 # Write out all Variable names into c() format
 # dput(names(AskData), file="Variables.txt")
 
@@ -180,6 +179,22 @@ We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_do
 The trick shall work with the function gather()
 
 ```{r}
+AskData <- AskData %>% mutate(CharityTreat = case_when(firstasktreat == "domestic_ha"               ~ "Domestic",
+                                                       firstasktreat == "domestic_happyfirst"       ~ "Domestic",
+                                                       firstasktreat == "domestic_hb"               ~ "Domestic",
+                                                       firstasktreat == "domestic_happyafter"       ~ "Domestic",
+                                                       firstasktreat == "international_happyafter"  ~ "International",
+                                                       firstasktreat == "international_ha"          ~ "International",
+                                                       firstasktreat == "international_hb"          ~ "International",
+                                                       firstasktreat == "international_happyfirst"  ~ "International",
+                                                       firstasktreat == "noask"                     ~ "No ask"
+                                                      ))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(OxfamDonation), BHFDonation, OxfamDonation))
+AskData <- AskData %>% mutate(Donation2 = ifelse(is.na(ask_cruk_10_mx25a), ask_stc_10_mx25, ask_cruk_10_mx25a))
+
+
+
+
 AskData <- AskData %>% gather(key = "AskCharity", value = "Donation", c("firstasktreat"), na.rm = TRUE ) 
 
 AskData <- AskData %>% mutate(Stage = case_when(AskCharity == "s1_don_int_ha" ~ "First",
