@@ -190,7 +190,14 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(firstasktreat == "domesti
                                                        firstasktreat == "noask"                     ~ "No ask"
                                                       ))
 AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(OxfamDonation), BHFDonation, OxfamDonation))
+    # gen Donation1= s1_don_dom_hb
+    # replace Donation1=s1_don_dom_ha if Donation1==.
+    # replace Donation1=s1_don_int_hb if Donation1==.
+    # replace Donation1=s1_don_int_ha if Donation1==.
+
 AskData <- AskData %>% mutate(Donation2 = ifelse(is.na(ask_cruk_10_mx25a), ask_stc_10_mx25, ask_cruk_10_mx25a))
+
+
 
 
 
