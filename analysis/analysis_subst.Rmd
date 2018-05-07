@@ -6,6 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(labelled)
+library(reporttools)
 ```
 
 ##Background: summary statistics and diagnostics
@@ -20,6 +22,16 @@ We present summary statistics of the donation incidence, levels, and distributio
 
 
 ```{r Summary statistics}
+# Define the categorical variables
+varsCat <- AskData %>% select(SEX, RACE, RELIG, SINGLE, `UNI STDNT`, STUDIES, MOMJOB, DADJOB, ABROAD) %>% rename(Gender = SEX, Race = RACE , Religion = RELIG, Single = SINGLE, `University student` = `UNI STDNT`, Studies = STUDIES, `Job: Mother` = MOMJOB, `Job: Father`= DADJOB, `Stay abroad` = ABROAD) %>% as.data.frame()
+
+varsCont <- AskData 
+
+capCat  <- "Categorical Covariates"
+
+# add the group =  option in order to compare between the treatments
+
+RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
 
 ```
 
