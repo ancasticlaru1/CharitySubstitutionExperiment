@@ -8,34 +8,12 @@ output:
   pdf_document: default
 ---
 
-# Install packages
 
-```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, include=FALSE}
-install.packages(c(
-    "tidyverse",
-    "viridis",
-    "broom"
-))
-
-```
-
-
-=======
+# Load Packages
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 library("broom")
 library("dataMaid")
-```
-
-# Data organisation
-
-```{r}
-# gerhard_dir <- "~/gerhard.riener@gmail.com/"
-# data_archive <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Data/"
-# data_build <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Build/Data/"
-# list_of_files <- list.files(data_archive, ".csv$",recursive = T) 
-# ".py$" is the type of file you want to copy. Remove if copying all types of files. 
-# file.copy(file.path(data_archive,list_of_files), data_build)
 ```
 
 
@@ -107,36 +85,34 @@ AskData <- bind_rows(FirstAsk, SecondAsk)
 
 AskData <- AskData[colSums(!is.na(AskData)) > 0] #removes rows with only missing data
 
-AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2 )
+AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2)
 AskData$happiness_1   <- as.factor(AskData$happiness_1)
 AskData$happiness_1_3 <- as.factor(AskData$happiness_1_3)
 AskData$happiness_1_1 <- as.factor(AskData$happiness_1_1)
 
 
-DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha")
+DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb")
 
 AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
 
 #DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
 
-keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1",   "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "Q51", "gender",  "firstasktreat",   "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",  "ResponseID", "ResponseSet", "thankyouemploy", "Q40", "vignettebackground",  "interviewers", "answersmatter", "salaryrequest1", "medsalaryguess",  "medsalarytold", "Q35", "vignetteagain", "Q36", "salaryrequest2",  "Q23", "anspctgradjob", "guesspctwork", "anspctwork", "guessavgsalary",  "ansavgsalary", "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q19", "DO-BR-FL_21",  "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132", "DO-BR-FL_133",  "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121", "DO-BR-FL_126",  "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114", "DO-BR-FL_144",  "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158", "DO-BR-FL_159",  "DO-BR-FL_164", "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50",  "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate")
+keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1",   "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "Q51", "gender",  "firstasktreat",   "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",  "ResponseID", "ResponseSet", "thankyouemploy", "Q40", "vignettebackground",  "interviewers", "answersmatter", "salaryrequest1", "medsalaryguess",  "medsalarytold", "Q35", "vignetteagain", "Q36", "salaryrequest2",  "Q23", "anspctgradjob", "guesspctwork", "anspctwork", "guessavgsalary",  "ansavgsalary", "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q19", "DO-BR-FL_21",  "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132", "DO-BR-FL_133",  "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121", "DO-BR-FL_126",  "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114", "DO-BR-FL_144",  "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158", "DO-BR-FL_159",  "DO-BR-FL_164", "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50",  "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate")
+
+
+VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAccustom", "LinguistTestAllusion", "ImportantIndependence", "ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate")
 
 # Variables names for renaming
-VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_ha","OxfamDonation", "BHFDonation", "TotalDonation","ns1_donint_ha","ns2_don_dom_hb", "ns2_don_dom_ha", "S1Donation", "ns1_dondom_ha","s1_don_int_hb", "ns2_don_int_hb", "ns2_don_int_ha", "happiness_1_1","happiness_1_2", "happiness_1_3", "happiness_1", "current_happiness_1","s1happyafter_int_1", "s1happynoask_1", "s1happynoask_1_1", "Q174","Q175", "SEX", "BIRTH", "RACE", "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "birth_nation","ABROAD", "NATION", "ENGYEARS", "FIRSTLANG", "FLUENT", "HOMELANG","LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2", "OTR_COUNTRY1_3","OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3", "ATTRIBUTES_1","ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4", "ATTRIBUTES_5","ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8", "ATTRIBUTES_9","ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON", "STIMUL", "SELFD","UNIVE", "BENEV", "TRADI", "CONFO", "SECUR", "WORTH", "GOODQ","FAIL", "COMPAR", "PROUD", "POSAT", "SATIS", "RESPECT", "USELESS","NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL", "ANIMO", "PACT","CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1", "auth2", "auth3","auth4", "EYES1", "EYES2", "EYES3", "EYES4", "EYES5", "EYES6","EYES7", "EYES8", "EYES9", "EYES10", "EYES11", "EYES12", "EYES13","EYES14", "EYES15", "EYES16", "EYES17", "EYES18", "RISK", "trust","decisionmode", "likert_time_recip_1", "likert_time_recip_2","likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1","social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5","ineq", "ownership", "merit", "IMPAIR", "MENT", "Q51", "gender","firstasktreat", "S1Reward", "Student", "sex", "childpresentmdl","clustergroup", "ordergroup", "recruitmentid", "title", "rand_num","rankingroup", "groupn", "reminderperson", "Gift", "BHFExtra","OxfamExtra", "TotalExtra", "ResponseID", "ResponseSet", "thankyouemploy","Q40", "vignettebackground", "interviewers", "answersmatter","salaryrequest1", "medsalaryguess", "medsalarytold", "Q35", "vignetteagain","Q36", "salaryrequest2", "Q23", "anspctgradjob", "guesspctwork","anspctwork", "guessavgsalary", "ansavgsalary", "Q17_1_TEXT","Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT", "Q18_1_TEXT", "Q18_2_TEXT","Q18_3_TEXT", "Q18_4_TEXT", "ask_stc_10_mx25", "ask_cruk_10_mx25a","Q19", "DO-BR-FL_21", "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132","DO-BR-FL_133", "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121","DO-BR-FL_126", "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114","DO-BR-FL_144", "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158","DO-BR-FL_159", "DO-BR-FL_164", "Q144", "Q145", "Gender2", "BirthData","Ethnicity", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3", "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "ImportantPower", "ImportantSuccess", "ImportantHedonsim", "ImportantStimulation","ImportantCreativity", "ImportantUniversalism", "ImpportantBenevolence", "ImportantTradition", "ImportantConformity", "ImportantSecurity", "SelfEsteemWorth", "SelfEsteemQuality", "SelfEsteemFailure","SelfEsteemGoodWork", "SelfEsteemNoProud", "SelfEsteemPositive", "SelfEsteemSatisfied", "SelfEsteemLittleRespect", "SelfEsteemUseless", "SelfEsteemNoGood", "LinguistTestSpace", "LinguistTestBroaden","LinguistTestEmanate", "LinguistTestEdible", "LinguistTestAnimosity", "LinguistTestPact", "LinguistTestCloistered", "LinguistTestCaprice","LinguistTestAccustom")
 
-VarNames2 <- c("LinguistTestAllusion" ,"ImportantIndependence","ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate")
+VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation", "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha", "S1Donation", "ns1_dondom_ha", "s1_don_int_hb", "ns2_don_int_hb", "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2", "happiness_1_3", "happiness_1", "current_happiness_1","s1happyafter_int_1", "s1happynoask_1", "s1happynoask_1_1", "Q174","Q175", "SEX", "BIRTH", "RACE", "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "birth_nation","ABROAD", "NATION", "ENGYEARS", "FIRSTLANG", "FLUENT", "HOMELANG","LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2", "OTR_COUNTRY1_3","OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3", "ATTRIBUTES_1","ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4", "ATTRIBUTES_5","ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8", "ATTRIBUTES_9","ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON", "STIMUL", "SELFD","UNIVE", "BENEV", "TRADI", "CONFO", "SECUR", "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS", "RESPECT", "USELESS","NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL", "ANIMO", "PACT","CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1", "auth2", "auth3","auth4", "EYES1", "EYES2", "EYES3", "EYES4", "EYES5", "EYES6","EYES7", "EYES8", "EYES9", "EYES10", "EYES11", "EYES12", "EYES13","EYES14", "EYES15", "EYES16", "EYES17", "EYES18", "RISK", "trust","decisionmode", "likert_time_recip_1", "likert_time_recip_2","likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1","social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5","ineq", "ownership", "merit", "IMPAIR", "MENT", "Q51", "gender","firstasktreat", "S1Reward", "Student", "sex", "childpresentmdl","clustergroup", "ordergroup", "recruitmentid", "title", "rand_num","rankingroup", "groupn", "reminderperson", "Gift", "BHFExtra","OxfamExtra", "TotalExtra", "ResponseID", "ResponseSet", "thankyouemploy","Q40", "vignettebackground", "interviewers", "answersmatter","salaryrequest1", "medsalaryguess", "medsalarytold", "Q35", "vignetteagain","Q36", "salaryrequest2", "Q23", "anspctgradjob", "guesspctwork","anspctwork", "guessavgsalary", "ansavgsalary", "Q17_1_TEXT","Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT", "Q18_1_TEXT", "Q18_2_TEXT","Q18_3_TEXT", "Q18_4_TEXT", "ask_stc_10_mx25", "ask_cruk_10_mx25a","Q19", "DO-BR-FL_21", "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132","DO-BR-FL_133", "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121","DO-BR-FL_126", "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114","DO-BR-FL_144", "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158","DO-BR-FL_159", "DO-BR-FL_164", "Q144", "Q145", "Gender2", "BirthData","Ethnicity", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3", "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "ImportantPower", "ImportantSuccess", "ImportantHedonsim", "ImportantStimulation","ImportantCreativity", "ImportantUniversalism", "ImpportantBenevolence", "ImportantTradition", "ImportantConformity", "ImportantSecurity", "SelfEsteemWorth", "SelfEsteemQuality", "SelfEsteemFailure", "SelfEsteemGoodWork", "SelfEsteemNoProud", "SelfEsteemPositive", "SelfEsteemSatisfied", "SelfEsteemLittleRespect", "SelfEsteemUseless", "SelfEsteemNoGood", "LinguistTestSpace", "LinguistTestBroaden","LinguistTestEmanate", "LinguistTestEdible", "LinguistTestAnimosity", "LinguistTestPact")
+
+
 
 VarNames <- c(VarNames1,VarNames2)
 
 AskData <- select(AskData, keepVars)
 
 colnames(AskData) <- VarNames
-
-
-
-
-# Write out all Variable names into c() format
-# dput(names(AskData), file="Variables.txt")
 
 ```
 
@@ -176,7 +152,6 @@ Our data is not tidy yet for the analysis. We need to make the dataset longer wi
 
 We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, ns1_don_dom_ha, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha
 
-The trick shall work with the function gather()
 
 ```{r}
 AskData <- AskData %>% mutate(CharityTreat = case_when(firstasktreat == "domestic_ha"               ~ "Domestic",
@@ -189,20 +164,18 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(firstasktreat == "domesti
                                                        firstasktreat == "international_happyfirst"  ~ "International",
                                                        firstasktreat == "noask"                     ~ "No ask"
                                                       ))
-AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(OxfamDonation), BHFDonation, OxfamDonation))
-AskData <- AskData %>% mutate(Donation2 = ifelse(is.na(ask_cruk_10_mx25a), ask_stc_10_mx25, ask_cruk_10_mx25a))
+AskData$Donation1 <- NA
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), BHFDonation, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), OxfamDonation, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), s1_don_int_ha, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), s1_don_int_hb, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), s1_don_dom_ha, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), s1_don_dom_hb, Donation1))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), ask_stc_10_mx25, Donation1 ))
+AskData <- AskData %>% mutate(Donation1 = ifelse(is.na(Donation1), ask_cruk_10_mx25a, Donation1 ))
 
+AskData <-AskData %>% select(code, Donation1, everything(), -RecruitmentID, -recruitmentid, -ResponseId, -ResponseID) %>% drop_na(Donation1) %>% group_by(code)
 
-
-
-AskData <- AskData %>% gather(key = "AskCharity", value = "Donation", c("firstasktreat"), na.rm = TRUE ) 
-
-AskData <- AskData %>% mutate(Stage = case_when(AskCharity == "s1_don_int_ha" ~ "First",
-                                                AskCharity == "ns1_donint_ha" ~ "First"
-                                                ))
-
-select(AskData,Stage)
-select(AskData,AskCharity)
 ```
 
 @DR 
