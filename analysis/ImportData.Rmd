@@ -8,19 +8,8 @@ output:
   pdf_document: default
 ---
 
-# Install packages
 
-```{r package install, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, include=FALSE}
-install.packages(c(
-    "tidyverse",
-    "viridis",
-    "broom"
-))
-
-```
-
-
-=======
+# Load Packages
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 library("broom")
