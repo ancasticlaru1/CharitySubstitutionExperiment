@@ -27,17 +27,6 @@ library("broom")
 library("dataMaid")
 ```
 
-# Data organisation
-
-```{r}
-# gerhard_dir <- "~/gerhard.riener@gmail.com/"
-# data_archive <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Data/"
-# data_build <- "~/gerhard.riener@gmail.com/substitution_experiment_is_back/Build/Data/"
-# list_of_files <- list.files(data_archive, ".csv$",recursive = T) 
-# ".py$" is the type of file you want to copy. Remove if copying all types of files. 
-# file.copy(file.path(data_archive,list_of_files), data_build)
-```
-
 
 # Import data (Omnibus-linked study only, for now)
 
