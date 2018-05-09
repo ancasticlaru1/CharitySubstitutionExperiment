@@ -22,11 +22,14 @@ library("qualtRics")
 
 
 Trying alternate input:
+DR, @GR -- the "readSurvey" function doesn't do much I guess 
 
 ```{r message=FALSE, warning=FALSE}
+col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
-Q_StudentsFirstAsk <- readSurvey("../data/StudentsFirstAsk.csv",stripHTML = TRUE, legacyFormat = FALSE)
+col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
+StudentsFirstAsk_full <- read_csv("../data/StudentsFirstAsk_full.csv", col_names = col_names_S1, skip = 3)
 ```
 
 
@@ -41,9 +44,6 @@ NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
 StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
-
-NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
-NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 ```
 
 *DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
