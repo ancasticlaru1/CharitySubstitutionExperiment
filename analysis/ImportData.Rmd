@@ -181,11 +181,8 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat."
                                                       )) 
 
-<<<<<<< HEAD
 AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
-=======
->>>>>>> 22be303a5ffe5c953179a44cb6c807cbfc6b4d8f
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
