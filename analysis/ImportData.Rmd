@@ -19,9 +19,11 @@ library("dataMaid")
   
 # Import data (Omnibus-linked study only, for now)
 
+Note: These are imported from .csv  files downloaded from Qualtrics.
+
 ```{r message=FALSE, warning=FALSE}
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #For some reason this one was tab delimited 
 
 col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
@@ -30,7 +32,6 @@ NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
 StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
-col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
 NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
 NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
