@@ -14,7 +14,17 @@ output:
 library("tidyverse")
 library("broom")
 library("dataMaid")
+library("qualtRics")
 ```
+
+
+# Trying an alternate way to import using qualtRics package 
+```{r message=FALSE, warning=FALSE}
+
+
+
+```
+
 
 
 # Import data (Omnibus-linked study only, for now)
