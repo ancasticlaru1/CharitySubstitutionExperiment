@@ -159,18 +159,31 @@ We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_do
 
 
 ```{r}
-AskData <- AskData %>% mutate(CharityTreat = case_when(firstasktreat == "domestic_ha"               ~ "Domestic-Domestic",
-                                                       firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
-                                                       firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
-                                                       firstasktreat == "domestic_happyafter"       ~ "Domestic-Domestic",
-                                                       firstasktreat == "international_happyafter"  ~ "Internat.-Internat.",
-                                                       firstasktreat == "international_ha"          ~ "Internat.-Internat.",
-                                                       firstasktreat == "international_hb"          ~ "Internat.-Internat.",
-                                                       firstasktreat == "international_happyfirst"  ~ "Internat.-Internat.",
+AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_ha"  ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Domestic",
+                                                       
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_ha"  ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_hb"               ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Internat.",
+                                                       
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_happyafter"  ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_ha"          ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_hb"          ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_happyfirst"  ~ "Internat.-Domestic",
+                                                       
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_happyafter"  ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_ha"          ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_hb"          ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_happyfirst"  ~ "Internat.-Internat.",
+                                                       
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic",
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat."
                                                       )) 
 
+AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
@@ -209,7 +222,7 @@ varsToKeep <- c("RiskAversion", "GeneralTrust","DecisionIntuitive", "InterestedP
 
 varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "SEX", "BIRTH", "RACE", "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "RISK", "trust", "BirthData", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK",  "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional")
 
-AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, one_of(varsToKeep)) %>% group_by(code)
+AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code)
 
 AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = Stage, y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
