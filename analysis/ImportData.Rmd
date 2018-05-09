@@ -16,10 +16,8 @@ library("broom")
 library("dataMaid")
 ```
 
-
+  
 # Import data (Omnibus-linked study only, for now)
-
-
 
 ```{r message=FALSE, warning=FALSE}
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
@@ -129,7 +127,7 @@ We have a lot of variables that record the same but are labeled differently in d
 
 
 ```{r}
-
+#DR: I assume this is making common variable names/labels for key variables across the surveys 
 
 varsReplace <- c("SEX", "BIRTH", "RACE")#, "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "birth_nation","ABROAD", "NATION", "ENGYEARS", "FIRSTLANG", "FLUENT", "HOMELANG","LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2", "OTR_COUNTRY1_3","OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3")
 
@@ -183,8 +181,11 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat."
                                                       )) 
 
+<<<<<<< HEAD
 AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
+=======
+>>>>>>> 22be303a5ffe5c953179a44cb6c807cbfc6b4d8f
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
@@ -230,5 +231,3 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
 
 ```
-
-@DR 
