@@ -14,16 +14,25 @@ output:
 library("tidyverse")
 library("broom")
 library("dataMaid")
+library("qualtRics")
 ```
 
   
 # Import data (Omnibus-linked study only, for now)
 
+
+Trying alternate input:
+
+```{r message=FALSE, warning=FALSE}
+
+Q_StudentsFirstAsk <- readSurvey("../data/StudentsFirstAsk.csv",stripHTML = TRUE, legacyFormat = FALSE)
+
+```
+
+
 Note: These are imported from .csv  files downloaded from Qualtrics.
 
 ```{r message=FALSE, warning=FALSE}
-StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #For some reason this one was tab delimited 
 
 col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
@@ -162,6 +171,7 @@ We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_do
 
 
 ```{r}
+#coding the main treatment "CharityTreat"
 AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_ha"  ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
@@ -188,10 +198,6 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
 
 AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c82c25f0651f65c1de1232cd0dc044fb90e937fe
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
@@ -201,8 +207,6 @@ AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_ha), "BHF" , Ch
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_hb), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_stc_10_mx25), "STC" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_cruk_10_mx25a), "CRUK" , Charity))
-
-
 
 AskData$Donation <- NA
 AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), BHFDonation, Donation))
