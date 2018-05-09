@@ -55,6 +55,9 @@ StudentsFirstAsk$Student <- rep(1,nrow(StudentsFirstAsk)) #A vector of 1's to de
 
 NonstudentsFirstAsk$Finished<-as.logical(NonstudentsFirstAsk$Finished)
 NonstudentsFirstAsk$Student <- rep(0,nrow(NonstudentsFirstAsk))
+NonstudentsFirstAsk$code <- as.character(NonstudentsFirstAsk$RecruitmentID)
+NonstudentsFirstAsk$code <- ifelse(is.na(NonstudentsFirstAsk$code), as.character(NonstudentsFirstAsk$recruitmentid), NonstudentsFirstAsk$code )
+
 
 FirstAsk <- bind_rows(StudentsFirstAsk,NonstudentsFirstAsk) #stacks the rows for students and nonstudents; hope they have the same variable names
 
@@ -73,6 +76,9 @@ StudentsSecondAsk$EndDate <- as.POSIXct(StudentsSecondAsk$EndDate, "%d.%m.%Y %H:
 NonstudentsSecondAsk$StartDate <- as.POSIXct(NonstudentsSecondAsk$StartDate, "%d/%m/%Y %H:%M",tz = "GMT")
 NonstudentsSecondAsk$EndDate <- as.POSIXct(NonstudentsSecondAsk$EndDate, "%d/%m/%Y %H:%M",tz = "GMT")
 NonstudentsSecondAsk$RecordedDate <- as.POSIXct(NonstudentsSecondAsk$RecordedDate, "%d/%m/%Y %H:%M",tz = "GMT")
+NonstudentsSecondAsk$code <- as.character(NonstudentsSecondAsk$RecruitmentID)
+NonstudentsSecondAsk$code <- ifelse(is.na(NonstudentsSecondAsk$code), as.character(NonstudentsSecondAsk$recruitmentid), NonstudentsSecondAsk$code )
+
 
 SecondAsk <- bind_rows(StudentsSecondAsk,NonstudentsSecondAsk)
 SecondAsk$Stage <- 2
@@ -206,6 +212,9 @@ varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "SEX", "BIRTH", "RACE", 
 AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, one_of(varsToKeep)) %>% group_by(code)
 
 AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = Stage, y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
+
+AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
+
 
 ```
 
