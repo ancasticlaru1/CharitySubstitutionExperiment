@@ -12,6 +12,8 @@
     global PGRAW "/home/gerhard/gerhard.riener@gmail.com/substitution_experiment_is_back/Build/Data"
     capture cd "$PGRAW"
 
+capture cd /Users/yosemite/githubs/CharitySubstitutionExperiment/data/
+
     !cp "/Users/yosemite/Google Drive/substitution_experiment_is_back/2016 retooling for mass experiment/similaritysurveydata/output/studentomnibus.dta" .
 
     ****************************
@@ -80,7 +82,8 @@ save ../Temp/NonstudentsFirstAsk, replace
 
     * merge
 
-use ../Temp/NonstudentsFirstAsk, clear
+    *use ../Temp/NonstudentsFirstAsk, clear
+    use  ../oldercode_to_adapt/recoverdata/NonstudentsFirstAsk, clear
     merge 1:1 recruitmentid using ../Temp/nonstudentomnibus
     *merge 1:1 recruitmentid using ../oldercode_to_adapt/recoverdata/nonstudentomnibus
 
@@ -107,6 +110,7 @@ save ../Temp/Nonstudentsallgood, replace
 
     * Read second ask
     clear
+*import delimited "StudentsSecondAsk.csv"
 import delimited "StudentsSecondAsk.csv"
 
     gen Donation2= ask_stc_10_mx25
@@ -123,8 +127,8 @@ import delimited "StudentsSecondAsk.csv"
 save ../Temp/StudentsSecondAsk, replace
 
     *** merge
-    merge 1:1 code using ../Temp/studentomnibus.dta
-    *merge 1:1 code using ../oldercode_to_adapt/recoverdata/studentomnibus.dta
+    *merge 1:1 code using ../Temp/studentomnibus.dta
+    merge 1:1 code using ../oldercode_to_adapt/recoverdata/studentomnibus.dta
     gen Experimentnum=2
 
 ***Todo: need to code variable the same format so they don't overwrite each other in the append
