@@ -108,7 +108,13 @@ AskData$happiness_1_1 <- as.factor(AskData$happiness_1_1)
 
 DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb")
 
+DonationVarsFix <- c("ask_stc_10_mx25", "ask_cruk_10_mx25a", "ns2_don_int_hb", "ns2_don_int_ha", "ns2_don_dom_hb", "ns2_don_dom_ha")
+#does firstasktreat belong in the above list? 
+
+#@GR: what was this supposed to do? The sum seems to doublecount things
 AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
+
+#AskData$AllDonationsFix <- rowSums(AskData[,DonationVarsFix], na.rm=TRUE)
 
 #DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
 
@@ -182,7 +188,7 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Domestic",
-                                                       
+                                                      o
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_ha"  ~ "Domestic-Internat.",
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Internat.",
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_hb"               ~ "Domestic-Internat.",
