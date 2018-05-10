@@ -25,16 +25,31 @@ Trying alternate input:
 DR, @GR -- the "readSurvey" function doesn't do much I guess 
 
 ```{r message=FALSE, warning=FALSE}
-col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+#Input nonstudents first ask 
+col_names_NS1 <- names(read_csv("../data/NonstudentsFirstAsk_full.csv", n_max = 0))  
+col_description_NS1 <- names(read_csv("../data/NonstudentsFirstAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
+NonstudentsFirstAsk_full <- read_csv("../data/NonstudentsFirstAsk_full.csv", col_names = col_names_S1, skip = 3)
 
-col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+#Input nonstudents second ask (Includes Omnibus, but coding/content differs from students version slightly)
+col_names_NS2 <- names(read_csv("../data/NonstudentsSecondAsk_full.csv", n_max = 0))  
+col_description_NS2 <- names(read_csv("../data/NonstudentsSecondAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
+NonstudentsSecondAsk_full <- read_csv("../data/NonstudentsSecondAsk_full.csv", col_names = col_names_S1, skip = 3)
 
+#Input students first ask (includes Omnibus, student coding differs slightly from nonstudent version)
+col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  
+col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
 StudentsFirstAsk_full <- read_csv("../data/StudentsFirstAsk_full.csv", col_names = col_names_S1, skip = 3)
-```
 
+
+#Input students second ask (paired with employability questions)
+col_names_S2 <- names(read_csv("../data/StudentsSecondAsk_full.csv", n_max = 0))  
+col_description_S2 <- names(read_csv("../data/StudentsSecondAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
+StudentsSecondAsk_full <- read_csv("../data/StudentsSecondAsk_full.csv", col_names = col_names_S1, skip = 3)
+```
 
 Note: These are imported from .csv  files downloaded from Qualtrics.
 
+#DR, @GR: I suggest cutting the following chunk, and adapting the previous chunk instead...
 ```{r message=FALSE, warning=FALSE}
 
 col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
@@ -111,7 +126,7 @@ DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonati
 DonationVarsFix <- c("ask_stc_10_mx25", "ask_cruk_10_mx25a", "ns2_don_int_hb", "ns2_don_int_ha", "ns2_don_dom_hb", "ns2_don_dom_ha")
 #does firstasktreat belong in the above list? 
 
-#@GR: what was this supposed to do? The sum seems to doublecount things
+# This sum seems to doublecount things
 AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
 
 #AskData$AllDonationsFix <- rowSums(AskData[,DonationVarsFix], na.rm=TRUE)
