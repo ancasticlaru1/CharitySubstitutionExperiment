@@ -14,14 +14,28 @@ output:
 library("tidyverse")
 library("broom")
 library("dataMaid")
+library("qualtRics")
 ```
 
   
 # Import data (Omnibus-linked study only, for now)
 
+
+Trying alternate input:
+DR, @GR -- the "readSurvey" function doesn't do much I guess 
+
 ```{r message=FALSE, warning=FALSE}
-StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
-StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
+col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+
+col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+
+StudentsFirstAsk_full <- read_csv("../data/StudentsFirstAsk_full.csv", col_names = col_names_S1, skip = 3)
+```
+
+
+Note: These are imported from .csv  files downloaded from Qualtrics.
+
+```{r message=FALSE, warning=FALSE}
 
 col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
@@ -30,10 +44,6 @@ NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk.csv")
 StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_double = FALSE, trim_ws = TRUE) #somehow this one was tab delimited 
 
-col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
-
-NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
-NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
 ```
 
 *DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
@@ -151,7 +161,6 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 # Save merged data
 write_csv(AskData, "../output/AskData.csv") 
 
-
 ```
 # TODO to make the data tidy
 
@@ -159,8 +168,16 @@ Our data is not tidy yet for the analysis. We need to make the dataset longer wi
 
 We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, ns1_don_dom_ha, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha
 
+**DR: The following should define the treatments**
+
+- Nonstudents: firstasktreat (same variable in both csv files) for first ask, combined with whichever is nonmissing among (ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) for the second ask (if one of the first two are present it is the international second ask, if one of the latter two are present it's the domestic second ask).
+  - In the raw data I find 97 entries with a firstasktreat recorded as well as a nonmissing value for one of the aforementioned ns2 variables.
+
+- Students:  firstasktreat (same variable in both csv files) for first ask, combined with whichever is nonmissing among ask_stc_10_mx25 and ask_cruk_10_mx25a for the second ask (the former is international, the latter is domestic).  
+  - In the raw data I find 142 obs with a firstasktreat recorded as well as a nonmissing value for one of ask_stc... or ask_cruk... 
 
 ```{r}
+#coding the main treatment "CharityTreat"
 AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_ha"  ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
@@ -187,7 +204,6 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
 
 AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
-
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
@@ -197,8 +213,6 @@ AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_ha), "BHF" , Ch
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_hb), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_stc_10_mx25), "STC" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_cruk_10_mx25a), "CRUK" , Charity))
-
-
 
 AskData$Donation <- NA
 AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), BHFDonation, Donation))
