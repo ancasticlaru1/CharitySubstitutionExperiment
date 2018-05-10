@@ -28,12 +28,12 @@ DR, @GR -- the "readSurvey" function doesn't do much I guess
 #Input nonstudents first ask 
 col_names_NS1 <- names(read_csv("../data/NonstudentsFirstAsk_full.csv", n_max = 0))  
 col_description_NS1 <- names(read_csv("../data/NonstudentsFirstAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
-NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk_full.csv", col_names = col_names_S1, skip = 3)
+NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk_full.csv", col_names = col_names_NS1, skip = 3)
 
 #Input nonstudents second ask (Includes Omnibus, but coding/content differs from students version slightly)
 col_names_NS2 <- names(read_csv("../data/NonstudentsSecondAsk_full.csv", n_max = 0))  
 col_description_NS2 <- names(read_csv("../data/NonstudentsSecondAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
-NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk_full.csv", col_names = col_names_S1, skip = 3)
+NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk_full.csv", col_names = col_names_NS2, skip = 3)
 
 #Input students first ask (includes Omnibus, student coding differs slightly from nonstudent version)
 col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  
@@ -44,7 +44,7 @@ StudentsFirstAsk <- read_csv("../data/StudentsFirstAsk_full.csv", col_names = co
 #Input students second ask (paired with employability questions)
 col_names_S2 <- names(read_csv("../data/StudentsSecondAsk_full.csv", n_max = 0))  
 col_description_S2 <- names(read_csv("../data/StudentsSecondAsk_full.csv", n_max = 0,skip=1)) #Row 2 gives the question text
-StudentsSecondAsk <- read_csv("../data/StudentsSecondAsk_full.csv", col_names = col_names_S1, skip = 3)
+StudentsSecondAsk <- read_csv("../data/StudentsSecondAsk_full.csv", col_names = col_names_S2, skip = 3)
 ```
 
 Note: These are imported from .csv  files downloaded from Qualtrics.
@@ -52,7 +52,7 @@ Note: These are imported from .csv  files downloaded from Qualtrics.
 #DR, @GR: I suggest cutting the following chunk, and adapting the previous chunk instead...
 ```{r message=FALSE, warning=FALSE}
 
-col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+col_names <- names(read_csv("../data/NonstudentsFirstAsk.csv", n_max = 0))  
 
 NonstudentsFirstAsk <- read_csv("../data/NonstudentsFirstAsk.csv", col_names = col_names, skip = 3)
 NonstudentsSecondAsk <- read_csv("../data/NonstudentsSecondAsk.csv")
@@ -81,7 +81,6 @@ NonstudentsFirstAsk$Student <- rep(0,nrow(NonstudentsFirstAsk))
 NonstudentsFirstAsk$code <- as.character(NonstudentsFirstAsk$RecruitmentID)
 NonstudentsFirstAsk$code <- ifelse(is.na(NonstudentsFirstAsk$code), as.character(NonstudentsFirstAsk$recruitmentid), NonstudentsFirstAsk$code )
 
-
 FirstAsk <- bind_rows(StudentsFirstAsk,NonstudentsFirstAsk) #stacks the rows for students and nonstudents; hope they have the same variable names
 
 FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "international_ha" | firstasktreat == "international_hb" | firstasktreat == "domestic_happyafter" | firstasktreat == "domestic_happyfirst" | firstasktreat == "domestic_ha" | firstasktreat == "domestic_hb"  | firstasktreat == "international_happybefore" | firstasktreat == "international_happyafter") #Removes before/after treatments here. (DR: might later recover for fancy statistics?)
@@ -102,11 +101,19 @@ NonstudentsSecondAsk$RecordedDate <- as.POSIXct(NonstudentsSecondAsk$RecordedDat
 NonstudentsSecondAsk$code <- as.character(NonstudentsSecondAsk$RecruitmentID)
 NonstudentsSecondAsk$code <- ifelse(is.na(NonstudentsSecondAsk$code), as.character(NonstudentsSecondAsk$recruitmentid), NonstudentsSecondAsk$code )
 
-
 SecondAsk <- bind_rows(StudentsSecondAsk,NonstudentsSecondAsk)
 SecondAsk$Stage <- 2
 
 ```
+
+*Comments on previous chunk:*
+
+- DR, @GR: There is no "recruitmentid" (lowercase) variable, so this generates an error/warning:
+```
+NonstudentsSecondAsk$code <- ifelse(is.na(NonstudentsSecondAsk$code), as.character(NonstudentsSecondAsk$recruitmentid), NonstudentsSecondAsk$code )
+```
+
+
 
 ## Stack first and second ask
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -123,17 +130,15 @@ AskData$happiness_1_1 <- as.factor(AskData$happiness_1_1)
 
 DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb")
 
-DonationVarsFix <- c("ask_stc_10_mx25", "ask_cruk_10_mx25a", "ns2_don_int_hb", "ns2_don_int_ha", "ns2_don_dom_hb", "ns2_don_dom_ha")
-#does firstasktreat belong in the above list? 
+DonationVarsFix <- c("ask_stc_10_mx25", "ask_cruk_10_mx25a", "ns2_don_int_hb", "ns2_don_int_ha", "ns2_don_dom_hb", "ns2_don_dom_ha") #@DonationVarsFix
 
-# This sum seems to doublecount things
-AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
+AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE) #@AllDonations
 
 #AskData$AllDonationsFix <- rowSums(AskData[,DonationVarsFix], na.rm=TRUE)
 
-#DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
 
-keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1",   "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "Q51", "gender",  "firstasktreat",   "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",  "ResponseID", "ResponseSet", "thankyouemploy", "Q40", "vignettebackground",  "interviewers", "answersmatter", "salaryrequest1", "medsalaryguess",  "medsalarytold", "Q35", "vignetteagain", "Q36", "salaryrequest2",  "Q23", "anspctgradjob", "guesspctwork", "anspctwork", "guessavgsalary",  "ansavgsalary", "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q19", "DO-BR-FL_21",  "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132", "DO-BR-FL_133",  "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121", "DO-BR-FL_126",  "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114", "DO-BR-FL_144",  "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158", "DO-BR-FL_159",  "DO-BR-FL_164", "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50",  "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate", "Stage")
+
+keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1",   "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "Q51", "gender",  "firstasktreat",   "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",  "ResponseID", "ResponseSet", "thankyouemploy", "Q40", "vignettebackground",  "interviewers", "answersmatter", "salaryrequest1", "medsalaryguess",  "medsalarytold", "Q35", "vignetteagain", "Q36", "salaryrequest2",  "Q23", "anspctgradjob", "guesspctwork", "anspctwork", "guessavgsalary",  "ansavgsalary", "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q19", "DO-BR-FL_21",  "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132", "DO-BR-FL_133",  "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121", "DO-BR-FL_126",  "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114", "DO-BR-FL_144",  "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158", "DO-BR-FL_159",  "DO-BR-FL_164", "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50",  "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate", "Stage") #@keepVars
 
 
 VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAccustom", "LinguistTestAllusion", "ImportantIndependence", "ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate", "Stage")
@@ -147,7 +152,6 @@ VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_
 AskData$firstasktreat <- ifelse(is.na(AskData$firstasktreat) & is.na(AskData$OxfamDonation), "international_happyfirst", AskData$firstasktreat)
     
 
-
 VarNames <- c(VarNames1,VarNames2)
 
 AskData <- select(AskData, keepVars)
@@ -155,6 +159,15 @@ AskData <- select(AskData, keepVars)
 colnames(AskData) <- VarNames
 
 ```
+
+*Comments on previous chunk:*
+
+- @Donationvars fix;  DR, @GR: Does firstasktreat belong in the above list? 
+
+- @AllDonations; DR, @GR: This sum seems to doublecount things
+
+- @keepVars; DR, @GR Maybe keep fewer variables here, process Omnibus variables in a separate chunk?
+
 
 ## Merge data columns
 
