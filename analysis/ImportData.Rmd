@@ -287,12 +287,18 @@ varsToKeep <- c("RiskAversion", "GeneralTrust","DecisionIntuitive", "InterestedP
 
 varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "sex", "birth", "race", "relig", "single", "uni stdnt","studies", "prev par", "exp pref", "momjob", "dadjob", "momeduc","dadeduc", "siblings", "siborder", "child", "numchild", "risk", "trust", "BirthData", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK",  "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "StartDate", "EndDate")
 
-AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code)
+AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) %>% filter((!is.na(Donation)& Stage == 2) |Stage == 1)
 
 AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
+<<<<<<< HEAD
+=======
+AskData1 <- AskData %>% arrange(code, Stage) %>% fill(CharityTreat) 
+
+
+>>>>>>> 4fa0d900abdf032f6931dde2917594cc5af4d859
 ```
 
 *Comments on previous chunk:*
