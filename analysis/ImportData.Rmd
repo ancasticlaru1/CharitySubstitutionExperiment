@@ -202,6 +202,7 @@ IterateReplace <- function(rd,kd) {
 }
 
 IterateReplace("Gender2","SEX")
+IterateReplace("Sex","sex")
 
 AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),birth,BirthData))
 
@@ -211,6 +212,12 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 write_csv(AskData, "../output/AskData.csv") 
 
 ```
+**Comments on above chunk**
+- DR, @GR: Not sure the "mapply" statement is working
+  - Also, is there a quicker way to do this in general for all cases where the variable names are the same except for capitalization?
+- DR, @GR: Wouldn't it be better for us to do the variable renaming for the nonstudents and students separately, so these have the same names, and then when we stack these the variables will be the same?
+
+
 # TODO to make the data tidy
 
 Our data is not tidy yet for the analysis. We need to make the dataset longer with the variable "Donation" as the main variable and Ask $\in {1,2}$ to indicate first and second ask and the charity they could donate to. 
