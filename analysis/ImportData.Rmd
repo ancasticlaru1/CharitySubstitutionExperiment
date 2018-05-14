@@ -302,7 +302,6 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
 AskData1 <- AskData %>% arrange(code, Stage) %>% fill(CharityTreat) 
 
-
 ```
 
 *Comments on previous chunk:*
