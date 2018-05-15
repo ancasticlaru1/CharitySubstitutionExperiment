@@ -165,8 +165,8 @@ AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
 
 mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
 
-# Save merged data
-write_csv(AskData, "../output/AskData.csv") 
+# Save merged data @DR took this out as I do not think this is necessary at this stage. We can do this once we have the full dataset
+# write_csv(AskData, "../output/AskData.csv") 
 
 ```
 **Comments on above chunk**
@@ -207,7 +207,7 @@ AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ask_cruk_10_mx25a
 #(ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) 
  #WIP AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic", !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic", !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.", !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic", !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat." ))  
 
-AskData$CharityTreat <- as.factor(AskData$CharityTreat)
+AskData$CharityTreatf <- as.factor(AskData$CharityTreatf)
 
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
@@ -244,9 +244,9 @@ varsToKeep <- c("RiskAversion", "GeneralTrust","DecisionIntuitive", "InterestedP
 
 varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "sex", "birth", "race", "relig", "single", "uni stdnt","studies", "prev par", "exp pref", "momjob", "dadjob", "momeduc","dadeduc", "siblings", "siborder", "child", "numchild", "risk", "trust", "BirthData", "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK",  "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "StartDate", "EndDate")
 
-AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) %>% filter((!is.na(Donation)& Stage == 2) |Stage == 1)
+AskData <-AskData %>% select(code, Stage, CharityTreatf, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) %>% filter((!is.na(Donation)& Stage == 2) |Stage == 1)
 
-AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreat) 
+AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf) 
 
 AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
