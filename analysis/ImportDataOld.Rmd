@@ -195,7 +195,10 @@ AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a)
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Domestic",
-
+<<<<<<< HEAD
+                                                       
+=======
+>>>>>>> 079360247eb4e3decd473cc3554f484c02f2b8ba
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_ha"  ~ "Domestic-Internat.",
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Internat.",
                                                        !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_hb"               ~ "Domestic-Internat.",
