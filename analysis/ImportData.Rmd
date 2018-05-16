@@ -25,7 +25,7 @@ Trying alternate input:
 DR, @GR -- the "readSurvey" function doesn't do much I guess 
 
 ```{r message=FALSE, warning=FALSE}
-col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
+col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow? @GR I think we shall keep it. 
 
 col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
@@ -248,7 +248,7 @@ AskData <-AskData %>% select(code, Stage, CharityTreatf, Charity, Donation, Happ
 
 AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf) 
 
-AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
+AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreatf) %>% drop_na(Donation) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
