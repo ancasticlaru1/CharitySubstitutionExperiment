@@ -42,7 +42,8 @@ PAP:
 We focus these tests on the summary statistics presented above. (Donation levels by charity and treatment, demographics of our population(s))
 
 ```{r Diagnostic tests}
-
+TableDonation <- AskData %>% ungroup() %>% drop_na(Donation, CharityTreatf) %>% group_by(CharityTreatf, Stage) %>% dplyr::summarize(count=n(), Donation = mean(Donation, na.rm = F))
+TableDonation
 ```
 
 ##Main comparisons
@@ -69,7 +70,9 @@ PAP:
 ```{r Statistical tests without controls}
 
 ```
+
 ```{r Plots}
+AskData %>% ungroup() %>% group_by(Stage, CharityTreatf) %>% drop_na(Donation, CharityTreatf) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 ```
 
