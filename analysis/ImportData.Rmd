@@ -18,9 +18,9 @@ library("qualtRics")
 ```
 
   
-# Import data (Omnibus-linked study only, for now)
+# Import data 
 
-
+## Omnibus-linked study
 Trying alternate input:
 DR, @GR -- the "readSurvey" function doesn't do much I guess 
 
@@ -48,7 +48,7 @@ StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_do
 
 *DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
 
-## First ask
+### First ask
 
 Stack students and non-students
 
@@ -73,7 +73,7 @@ FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "intern
 FirstAsk$Stage <- 1
 ```
 
-## Second ask
+### Second ask
 ```{r}
 NonstudentsSecondAsk$Finished<-as.logical(NonstudentsSecondAsk$Finished)
 StudentsSecondAsk$Finished<-as.logical(StudentsSecondAsk$Finished)
@@ -93,7 +93,7 @@ SecondAsk$Stage <- 2
 
 ```
 
-## Stack first and second ask
+### Stack first and second ask
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
 AskData <- bind_rows(FirstAsk, SecondAsk)
@@ -142,7 +142,7 @@ colnames(AskData) <- VarNames
 
 ```
 
-## Merge data columns
+### Merge data columns
 
 We have a lot of variables that record the same but are labeled differently in different experiments. Try to merge those. DR: Maybe Anka can help with this
 
@@ -175,12 +175,7 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 - DR, @GR: Wouldn't it be better for us to do the variable renaming for the nonstudents and students separately, so these have the same names, and then when we stack these the variables will be the same?
 
 
-# TODO to make the data tidy
-
-Our data is not tidy yet for the analysis. We need to make the dataset longer with the variable "Donation" as the main variable and Ask $\in {1,2}$ to indicate first and second ask and the charity they could donate to. 
-
-We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, ns1_don_dom_ha, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha
-
+### Tidy data
 **DR: The following should define the treatments**
 
 - Nonstudents: firstasktreat (same variable in both csv files) for first ask, combined with whichever is nonmissing among (ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) for the second ask (if one of the first two are present it is the international second ask, if one of the latter two are present it's the domestic second ask).
@@ -288,3 +283,22 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
   - Note I changed the capitalisation on some variables and we need to adjust to that
   
 - DR, 14 May 2018: I shortened the variable coding for students (tested as identical) and add(ing) the nonstudent bit now
+
+## Exeter Piggy back
+
+```{r Import piggy back, message=FALSE, warning=FALSE, paged.print=FALSE}
+AskDataExeter <- read_csv("../data/substitution_giving_data_exeter1-round1_round2.csv")
+AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "GMT", "%y%m%d_%H%M")
+AskDataExeter <- AskDataExeter %>% 
+  rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
+  mutate(earnings_1 = Earnings_check + gamble_check) %>% 
+  select(everything(),-dropflag, -satisfiedexperiment_1, -comments, -comments_1, -Earnings_check, -gamble_check, -countingorder_1, -countingorder_2)
+
+AskDataExeter <- AskDataExeter %>% 
+gather(key = variable, value, donationpresent_1, donationpresent_2, donationstated_1, donationstated_2, happiness_1, happiness_2, earnings_1, earnings_2, -ID, -Treatment , na.rm = FALSE, convert = TRUE) %>% 
+  separate(variable, into = c("Variable", "Stage"), sep = "_") %>% 
+  spread(key = Variable, value = value) %>% replace_na(list(donationpresent = 0)) %>% rename(Donation = donationpresent)
+
+
+```
+
