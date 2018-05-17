@@ -289,6 +289,7 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 ```{r Import piggy back, message=FALSE, warning=FALSE, paged.print=FALSE}
 AskDataExeter <- read_csv("../data/substitution_giving_data_exeter1-round1_round2.csv")
 AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "GMT", "%y%m%d_%H%M")
+
 AskDataExeter <- AskDataExeter %>% 
   rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
   mutate(earnings_1 = Earnings_check + gamble_check) %>% 
@@ -297,7 +298,10 @@ AskDataExeter <- AskDataExeter %>%
 AskDataExeter <- AskDataExeter %>% 
 gather(key = variable, value, donationpresent_1, donationpresent_2, donationstated_1, donationstated_2, happiness_1, happiness_2, earnings_1, earnings_2, -ID, -Treatment , na.rm = FALSE, convert = TRUE) %>% 
   separate(variable, into = c("Variable", "Stage"), sep = "_") %>% 
-  spread(key = Variable, value = value) %>% replace_na(list(donationpresent = 0)) %>% rename(Donation = donationpresent)
+  spread(key = Variable, value = value) %>% replace_na(list(donationpresent = 0)) %>% mutate(Donation = as.numeric(donationpresent), Treatment = as.factor(Treatment), Stage = as.factor(Stage)) 
+
+AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF" = "0" , "Oxfam - UNICEF" = "1", "WWF - UNICEF" = "2")
+
 
 
 ```
