@@ -18,14 +18,14 @@ library("qualtRics")
 ```
 
   
-# Import data 
+# Import data (Omnibus-linked study only, for now)
 
-## Omnibus-linked study
+
 Trying alternate input:
 DR, @GR -- the "readSurvey" function doesn't do much I guess 
 
 ```{r message=FALSE, warning=FALSE}
-col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow? @GR I think we shall keep it. 
+col_names_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
 col_description_S1 <- names(read_csv("../data/StudentsFirstAsk_full.csv", n_max = 0,skip=1))  #DR: this was downloaded without editing out that weird row, so we needed to recover column names @GR: note that the second row is a description of the variable names -- shall we keep this somehow?
 
@@ -48,7 +48,7 @@ StudentsSecondAsk <- read_delim("../data/StudentsSecondAsk.csv", "\t", escape_do
 
 *DR:* I suggest we might deal with the 'omnibus survey responses' as separate files and separate code blocks. These are coded slightly differently for students and nonstudents. Also, these come with the 'second ask' for nonstudents but with the 'first ask' for students.
 
-### First ask
+## First ask
 
 Stack students and non-students
 
@@ -73,7 +73,7 @@ FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "intern
 FirstAsk$Stage <- 1
 ```
 
-### Second ask
+## Second ask
 ```{r}
 NonstudentsSecondAsk$Finished<-as.logical(NonstudentsSecondAsk$Finished)
 StudentsSecondAsk$Finished<-as.logical(StudentsSecondAsk$Finished)
@@ -93,17 +93,12 @@ SecondAsk$Stage <- 2
 
 ```
 
-### Stack first and second ask
+## Stack first and second ask
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
 AskData <- bind_rows(FirstAsk, SecondAsk)
-<<<<<<< HEAD
-  
-AskData <- AskData[colSums(!is.na(AskData)) > 0] #@removes rows with only missing data 
-=======
 
 AskData <- AskData[colSums(!is.na(AskData)) > 0] #removes rows with only missing data
->>>>>>> 7fe450892272e20f86f8b677993de71c9fa717dc
 
 AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2)
 AskData$happiness_1   <- as.factor(AskData$happiness_1)
@@ -117,16 +112,20 @@ AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
 
 #DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
 
+keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1",   "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "Q51", "gender",  "firstasktreat",   "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",  "ResponseID", "ResponseSet", "thankyouemploy", "Q40", "vignettebackground",  "interviewers", "answersmatter", "salaryrequest1", "medsalaryguess",  "medsalarytold", "Q35", "vignetteagain", "Q36", "salaryrequest2",  "Q23", "anspctgradjob", "guesspctwork", "anspctwork", "guessavgsalary",  "ansavgsalary", "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q19", "DO-BR-FL_21",  "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132", "DO-BR-FL_133",  "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121", "DO-BR-FL_126",  "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114", "DO-BR-FL_144",  "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158", "DO-BR-FL_159",  "DO-BR-FL_164", "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50",  "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate", "Stage")
+
 
 VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAccustom", "LinguistTestAllusion", "ImportantIndependence", "ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate", "Stage")
 
-keepVars <- c("ResponseId","code","RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb",  "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2",  "happiness_1_3", "happiness_1", "current_happiness_1", "s1happyafter_int_1",  "s1happynoask_1", "s1happynoask_1_1", "Q174", "Q175", "SEX", "BIRTH", "RACE", "RELIG",  "SINGLE", "UNI STDNT", "STUDIES", "PREV PAR", "EXP PREF", "MOMJOB",  "DADJOB", "MOMEDUC", "DADEDUC", "SIBLINGS", "SIBORDER", "CHILD",  "NUMCHILD", "birth_nation", "ABROAD", "NATION", "ENGYEARS", "FIRSTLANG",  "FLUENT", "HOMELANG", "LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2",  "OTR_COUNTRY1_3", "OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3",  "ATTRIBUTES_1", "ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4",  "ATTRIBUTES_5", "ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8",  "ATTRIBUTES_9", "ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON",  "STIMUL", "SELFD", "UNIVE", "BENEV", "TRADI", "CONFO", "SECUR",  "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS",  "RESPECT", "USELESS", "NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL",  "ANIMO", "PACT", "CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1",  "auth2", "auth3", "auth4", "EYES1", "EYES2", "EYES3", "EYES4",  "EYES5", "EYES6", "EYES7", "EYES8", "EYES9", "EYES10", "EYES11",  "EYES12", "EYES13", "EYES14", "EYES15", "EYES16", "EYES17", "EYES18",  "RISK", "trust", "decisionmode", "likert_time_recip_1", "likert_time_recip_2",  "likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1",  "social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5",  "ineq", "ownership", "merit", "IMPAIR", "MENT",   "gender",  "firstasktreat", "S1Reward", "Student",   "sex", "childpresentmdl",  "clustergroup", "ordergroup", "recruitmentid", "title", "rand_num",  "rankingroup", "groupn", "reminderperson",  "Gift", "BHFExtra", "OxfamExtra", "TotalExtra",   "salaryrequest1", "medsalaryguess",  "salaryrequest2",  "Q23",  "guesspctwork",  "guessavgsalary",   "Q17_1_TEXT", "Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT",  "Q18_1_TEXT", "Q18_2_TEXT", "Q18_3_TEXT", "Q18_4_TEXT",  "ask_stc_10_mx25", "ask_cruk_10_mx25a",  "Q144", "Q145", "Q46", "Q47", "Q48", "Q49", "Q50", "Q53", "Q54", "Q56", "Q57", "Q58", "Q59", "Q60", "Q61", "Q62",  "Q63", "Q64", "Q65", "Q66", "Q67", "Q68", "Q69", "Q70", "Q71",  "Q72_1", "Q72_2", "Q72_3", "Q73_1", "Q73_2", "Q73_3", "Q75_1",  "Q75_2", "Q75_3", "Q75_4", "Q75_5", "Q75_6", "Q75_7", "Q75_8",  "Q75_9", "Q75_10", "Q77", "Q78", "Q79", "Q80", "Q81", "Q83",  "Q84", "Q85", "Q86", "Q87", "Q89", "Q90", "Q91", "Q92", "Q93",  "Q95", "Q96", "Q97", "Q98", "Q99", "Q101", "Q102", "Q103", "Q104",  "Q105", "Q107", "Q108", "Q109", "Q110", "Q111", "Q151", "Q152",  "Q153", "Q154", "Q113", "Q114", "Q115", "Q116", "Q117", "Q118",  "Q120", "Q121", "Q122", "Q123", "Q124", "Q125", "Q127", "Q128",  "Q129", "Q130", "Q131", "Q132", "Q146", "Q147", "Q148", "Q149_1",  "Q149_2", "Q149_3", "Q134", "Q135", "Q136_1", "Q136_2", "Q136_3",  "Q136_4", "Q136_5", "Q138", "Q139", "Q140", "Q141", "Q142",  "StartDate", "EndDate", "Stage","DistributionChannel", "Duration (in seconds)") #@keepVars
-
 # Variables names for renaming
+<<<<<<< HEAD
 
+VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation", "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha", "S1Donation", "ns1_dondom_ha", "s1_don_int_hb", "ns2_don_int_hb", "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2", "happiness_1_3", "happiness_1", "current_happiness_1","s1happyafter_int_1", "s1happynoask_1", "s1happynoask_1_1", "Q174","Q175", "SEX", "BIRTH", "RACE", "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "birth_nation","ABROAD", "NATION", "ENGYEARS", "FIRSTLANG", "FLUENT", "HOMELANG","LANGS", "OTR_COUNTRY1_1", "OTR_COUNTRY1_2", "OTR_COUNTRY1_3","OTR_COUNTRY2_1", "OTR_COUNTRY2_2", "OTR_COUNTRY2_3", "ATTRIBUTES_1","ATTRIBUTES_2", "ATTRIBUTES_3", "ATTRIBUTES_4", "ATTRIBUTES_5","ATTRIBUTES_6", "ATTRIBUTES_7", "ATTRIBUTES_8", "ATTRIBUTES_9","ATTRIBUTES_10", "POWER", "ACHIEVE", "HEDON", "STIMUL", "SELFD","UNIVE", "BENEV", "TRADI", "CONFO", "SECUR", "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS", "RESPECT", "USELESS","NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL", "ANIMO", "PACT","CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1", "auth2", "auth3","auth4", "EYES1", "EYES2", "EYES3", "EYES4", "EYES5", "EYES6","EYES7", "EYES8", "EYES9", "EYES10", "EYES11", "EYES12", "EYES13","EYES14", "EYES15", "EYES16", "EYES17", "EYES18", "RISK", "trust","decisionmode", "likert_time_recip_1", "likert_time_recip_2","likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1","social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5","ineq", "ownership", "merit", "IMPAIR", "MENT", "Q51", "gender","firstasktreat", "S1Reward", "Student", "sex", "childpresentmdl","clustergroup", "ordergroup", "recruitmentid", "title", "rand_num","rankingroup", "groupn", "reminderperson", "Gift", "BHFExtra","OxfamExtra", "TotalExtra", "ResponseID", "ResponseSet", "thankyouemploy","Q40", "vignettebackground", "interviewers", "answersmatter","salaryrequest1", "medsalaryguess", "medsalarytold", "Q35", "vignetteagain","Q36", "salaryrequest2", "Q23", "anspctgradjob", "guesspctwork","anspctwork", "guessavgsalary", "ansavgsalary", "Q17_1_TEXT","Q17_2_TEXT", "Q17_3_TEXT", "Q17_4_TEXT", "Q18_1_TEXT", "Q18_2_TEXT","Q18_3_TEXT", "Q18_4_TEXT", "ask_stc_10_mx25", "ask_cruk_10_mx25a","Q19", "DO-BR-FL_21", "DO-BR-FL_22", "DO-BR-FL_100", "DO-BR-FL_132","DO-BR-FL_133", "DO-BR-FL_138", "DO-BR-FL_120", "DO-BR-FL_121","DO-BR-FL_126", "DO-BR-FL_108", "DO-BR-FL_109", "DO-BR-FL_114","DO-BR-FL_144", "DO-BR-FL_145", "DO-BR-FL_150", "DO-BR-FL_158","DO-BR-FL_159", "DO-BR-FL_164", "Q144", "Q145", "Gender2", "BirthData","Ethnicity", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3", "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "ImportantPower", "ImportantSuccess", "ImportantHedonsim", "ImportantStimulation","ImportantCreativity", "ImportantUniversalism", "ImpportantBenevolence", "ImportantTradition", "ImportantConformity", "ImportantSecurity", "SelfEsteemWorth", "SelfEsteemQuality", "SelfEsteemFailure", "SelfEsteemGoodWork", "SelfEsteemNoProud", "SelfEsteemPositive", "SelfEsteemSatisfied", "SelfEsteemLittleRespect", "SelfEsteemUseless", "SelfEsteemNoGood", "LinguistTestSpace", "LinguistTestBroaden","LinguistTestEmanate", "LinguistTestEdible", "LinguistTestAnimosity", "LinguistTestPact")
+=======
 VarNames1 <- c("ResponseId", "code", "RecruitmentID","AllDonations","s1_don_int_ha", "OxfamDonation", "BHFDonation", "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha", "S1Donation", "ns1_dondom_ha", "s1_don_int_hb", "ns2_don_int_hb", "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb", "happiness_1_1", "happiness_1_2", "happiness_1_3", "happiness_1", "current_happiness_1","s1happyafter_int_1", "s1happynoask_1", "s1happynoask_1_1", "Q174","Q175", "sex", "birth", "race", "relig", "single", "uni stdnt","studies", "prev par", "exp pref", "momjob", "dadjob", "momeduc","dadeduc", "siblings", "siborder", "child", "numchild", "birth_nation","abroad", "nation", "engyears", "firstlang", "fluent", "homelang","langs", "otr_country1_1", "otr_country1_2", "otr_country1_3","otr_country2_1", "otr_country2_2", "otr_country2_3", "attributes_1","attributes_2", "attributes_3", "attributes_4", "attributes_5","attributes_6", "attributes_7", "attributes_8", "attributes_9","attributes_10", "power", "achieve", "hedon", "stimul", "selfd","unive", "benev", "tradi", "confo", "secur", "worth", "goodq", "fail", "compar", "proud", "posat", "satis", "respect", "useless","nogood", "space", "broad", "emana", "edibl", "animo", "pact","clois", "capri", "accus", "allus", "auth1", "auth2", "auth3","auth4", "eyes1", "eyes2", "eyes3", "eyes4", "eyes5", "eyes6","eyes7", "eyes8", "eyes9", "eyes10", "eyes11", "eyes12", "eyes13","eyes14", "eyes15", "eyes16", "eyes17", "eyes18", "risk", "trust","decisionmode", "likert_time_recip_1", "likert_time_recip_2","likert_time_recip_3", "pol_interest", "POLIT", "social_ideo_1","social_ideo_2", "social_ideo_3", "social_ideo_4", "social_ideo_5","ineq", "ownership", "merit", "ImpairmentHearSight", "ImpairmentDescription", "gender","firstasktreat", "S1Reward", "Student", "Sex", "childpresentmdl","clustergroup", "ordergroup", "recruitmentid", "title", "rand_num","rankingroup", "groupn", "reminderperson", "Gift", "BHFExtra","OxfamExtra", "TotalExtra", "salaryrequest1",   "medsalaryguess",  "salaryrequest2", "Q23",    "guesspctwork", "guessavgsalary",  "Q17_1","Q17_2", "Q17_3", "Q17_4", "Q18_1", "Q18_2","Q18_3", "Q18_4", "ask_stc_10_mx25", "ask_cruk_10_mx25a", "Q144", "Q145", "Gender2", "BirthData","Ethnicity", "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3", "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "ImportantPower", "ImportantSuccess", "ImportantHedonism", "ImportantStimulation","ImportantCreativity", "ImportantUniversalism", "ImportantBenevolence", "ImportantTradition", "ImportantConformity", "ImportantSecurity", "SelfEsteemWorth", "SelfEsteemQuality", "SelfEsteemFailure", "SelfEsteemGoodWork", "SelfEsteemNoProud", "SelfEsteemPositive", "SelfEsteemSatisfied", "SelfEsteemLittleRespect", "SelfEsteemUseless", "SelfEsteemNoGood", "LinguistTestSpace", "LinguistTestBroaden","LinguistTestEmanate", "LinguistTestEdible", "LinguistTestAnimosity", "LinguistTestPact")
 
 VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAccustom", "LinguistTestAllusion", "ImportantIndependence", "ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Eyes1", "Eyes2",	"Eyes3",	"Eyes4",	"Eyes5","Eyes6","Eyes7",	"Eyes8",	"Eyes9",	"Eyes10",	"Eyes11",	"Eyes12", "Eyes13", "Eyes14", "Eyes15", "Eyes16", "Eyes17",	"Eyes18", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Patience", "CostlyPunisherDirect", "CostlyPunisherIndirect", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight0", "ImpairmentDescription0", "StartDate", "EndDate", "Stage","DistributionChannel", "Duration")
+>>>>>>> 079360247eb4e3decd473cc3554f484c02f2b8ba
 
 # Further fixes
 
@@ -136,18 +135,13 @@ AskData$firstasktreat <- ifelse(is.na(AskData$firstasktreat) & is.na(AskData$Oxf
 
 VarNames <- c(VarNames1,VarNames2)
 
-
 AskData <- select(AskData, keepVars)
 
-VarNames <- c(VarNames1,VarNames2)
 colnames(AskData) <- VarNames
-
-
-
 
 ```
 
-### Merge data columns
+## Merge data columns
 
 We have a lot of variables that record the same but are labeled differently in different experiments. Try to merge those. DR: Maybe Anka can help with this
 
@@ -159,6 +153,7 @@ varsReplace <- c("SEX", "BIRTH", "RACE")#, "RELIG", "SINGLE", "UNI STDNT","STUDI
 
 varsKeepReplace <- c("Gender2", "BirthData","Ethnicity")#, "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3")
 
+
 IterateReplace <- function(rd,kd) {
   AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd))
 }
@@ -166,12 +161,12 @@ IterateReplace <- function(rd,kd) {
 IterateReplace("Gender2","SEX")
 IterateReplace("Sex","sex")
 
-# AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
+AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
 
 mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
 
-# Save merged data @DR took this out as I do not think this is necessary at this stage. We can do this once we have the full dataset
-# write_csv(AskData, "../output/AskData.csv") 
+# Save merged data
+write_csv(AskData, "../output/AskData.csv") 
 
 ```
 **Comments on above chunk**
@@ -180,7 +175,12 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 - DR, @GR: Wouldn't it be better for us to do the variable renaming for the nonstudents and students separately, so these have the same names, and then when we stack these the variables will be the same?
 
 
-### Tidy data
+# TODO to make the data tidy
+
+Our data is not tidy yet for the analysis. We need to make the dataset longer with the variable "Donation" as the main variable and Ask $\in {1,2}$ to indicate first and second ask and the charity they could donate to. 
+
+We have the donation variables s1_don_int_ha, OxfamDonation, BHFDonation, ns1_donint_ha, ns2_don_dom_hb, ns2_don_dom_ha, S1Donation, ns1_don_dom_ha, s1_don_int_hb, ns2_don_int_hb, ns2_don_int_ha
+
 **DR: The following should define the treatments**
 
 - Nonstudents: firstasktreat (same variable in both csv files) for first ask, combined with whichever is nonmissing among (ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) for the second ask (if one of the first two are present it is the international second ask, if one of the latter two are present it's the domestic second ask).
@@ -191,39 +191,34 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 
 ```{r}
 #coding the main treatment "CharityTreat"
-
-#First for students
-
-
-AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic",
-                                                       !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.",
-                                                       !is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic",
-                                                       !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.",
+AskData <- AskData %>% mutate(CharityTreat = case_when(!is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_ha"  ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_hb"               ~ "Domestic-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Domestic",
+<<<<<<< HEAD
+                                                       
+=======
+>>>>>>> 079360247eb4e3decd473cc3554f484c02f2b8ba
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_ha"  ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyfirst"       ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_hb"               ~ "Domestic-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "domestic_happyafter"       ~ "Domestic-Internat.",
+                                                       
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_happyafter"  ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_ha"          ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_hb"          ~ "Internat.-Domestic",
+                                                       !is.na(ask_cruk_10_mx25a) & firstasktreat == "international_happyfirst"  ~ "Internat.-Domestic",
+                                                       
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_happyafter"  ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_ha"          ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_hb"          ~ "Internat.-Internat.",
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "international_happyfirst"  ~ "Internat.-Internat.",
+                                                       
                                                        !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic",
-                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat.",
-                                                       !is.na(ns2_don_dom_hb) & firstasktreat == "noask"  ~ "No ask-Domestic",
-                                                       !is.na(ns2_don_dom_ha) & firstasktreat == "noask"  ~ "No ask-Domestic",
-                                                       !is.na(ns2_don_int_hb) & firstasktreat == "noask"  ~ "No ask-Internat.",
-                                                       !is.na(ns2_don_int_ha) & firstasktreat == "noask"  ~ "No ask-Internat.",
-                                                       !is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic",
-                                                       !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic",
-                                                       !is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic",
-                                                       !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.",
-                                                       !is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic",
-                                                       !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic",
-                                                       !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Internat.",
-                                                       !is.na(ns2_don_int_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.",
-                                                       !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"international")  ~ "Internat.-Internat.",
-                                                       !is.na(ns2_don_int_ha) & str_detect(firstasktreat,"international")   ~ "Internat.-Internat.",
-                                                       !is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"international")  ~ "Internat.-Domestic",
-                                                       !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic"
+                                                       !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat."
                                                       )) 
 
-#Next for for nonstudents
-#(ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) 
- #WIP AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic", !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic", !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.", !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic", !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat." ))  
-
-AskData$CharityTreatf <- as.factor(AskData$CharityTreatf)
+AskData$CharityTreat <- as.factor(AskData$CharityTreat)
 
 AskData$Charity <- NA
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
@@ -232,12 +227,6 @@ AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_int_ha), "Oxfam" , 
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_int_hb), "Oxfam" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_ha), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_hb), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_int_ha), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_int_hb), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_ha), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_hb), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns1_donint_ha), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns1_dondom_ha), "BHF" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_stc_10_mx25), "STC" , Charity))
 AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_cruk_10_mx25a), "CRUK" , Charity))
 
@@ -250,12 +239,6 @@ AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_ha, 
 AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_hb, Donation))
 AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ask_stc_10_mx25, Donation ))
 AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ask_cruk_10_mx25a, Donation ))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns1_donint_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns1_dondom_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_hb, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_hb, Donation))
 
 AskData$Happiness <- NA
 AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_1, Happiness))
@@ -272,13 +255,15 @@ varsToKeep <- c("RiskAversion", "GeneralTrust","DecisionIntuitive", "InterestedP
 
 varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "sex", "birth", "race", "relig", "single", "uni stdnt","studies", "prev par", "exp pref", "momjob", "dadjob", "momeduc","dadeduc", "siblings", "siborder", "child", "numchild", "risk", "trust", "BirthData", "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK",  "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "StartDate", "EndDate")
 
-AskData <-AskData %>% select(code, Stage, CharityTreatf, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) 
-# %>% #filter((!is.na(Donation)& Stage == 2) |Stage == 1)
+AskData <-AskData %>% select(code, Stage, CharityTreat, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) %>% filter((!is.na(Donation)& Stage == 2) |Stage == 1)
 
-AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf) 
+AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreat) 
+
+AskData %>% ungroup() %>% group_by(Charity,Stage,CharityTreat) %>% drop_na(Donation) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreat )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
+table(AskData$CharityTreat, AskData$Stage, useNA = "ifany")
 
 ```
 
@@ -286,28 +271,3 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
 - DR, @GR: Why are we dropping/keeping these specific variables?
   - Note I changed the capitalisation on some variables and we need to adjust to that
-  
-- DR, 14 May 2018: I shortened the variable coding for students (tested as identical) and add(ing) the nonstudent bit now
-
-## Exeter Piggy back
-
-```{r Import piggy back, message=FALSE, warning=FALSE, paged.print=FALSE}
-AskDataExeter <- read_csv("../data/substitution_giving_data_exeter1-round1_round2.csv")
-AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "GMT", "%y%m%d_%H%M")
-
-AskDataExeter <- AskDataExeter %>% 
-  rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
-  mutate(earnings_1 = Earnings_check + gamble_check) %>% 
-  select(everything(),-dropflag, -satisfiedexperiment_1, -comments, -comments_1, -Earnings_check, -gamble_check, -countingorder_1, -countingorder_2)
-
-AskDataExeter <- AskDataExeter %>% 
-gather(key = variable, value, donationpresent_1, donationpresent_2, donationstated_1, donationstated_2, happiness_1, happiness_2, earnings_1, earnings_2, -ID, -Treatment , na.rm = FALSE, convert = TRUE) %>% 
-  separate(variable, into = c("Variable", "Stage"), sep = "_") %>% 
-  spread(key = Variable, value = value) %>% replace_na(list(donationpresent = 0)) %>% mutate(Donation = as.numeric(donationpresent), Treatment = as.factor(Treatment), Stage = as.factor(Stage)) 
-
-AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF" = "0" , "Oxfam - UNICEF" = "1", "WWF - UNICEF" = "2")
-
-
-
-```
-
