@@ -97,26 +97,19 @@ SecondAsk$Stage <- 2
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
 AskData <- bind_rows(FirstAsk, SecondAsk)
-<<<<<<< HEAD
   
 AskData <- AskData[colSums(!is.na(AskData)) > 0] #@removes rows with only missing data 
-=======
-
-AskData <- AskData[colSums(!is.na(AskData)) > 0] #removes rows with only missing data
->>>>>>> 7fe450892272e20f86f8b677993de71c9fa717dc
 
 AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2)
 AskData$happiness_1   <- as.factor(AskData$happiness_1)
 AskData$happiness_1_3 <- as.factor(AskData$happiness_1_3)
 AskData$happiness_1_1 <- as.factor(AskData$happiness_1_1)
 
-
 DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb")
 
 AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
 
 #DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
-
 
 VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAccustom", "LinguistTestAllusion", "ImportantIndependence", "ImportantCuriosity", "ImportantSelfReliance", "ImportantConsiderate", "Q113", "Q114", "Q115", "Q116","Q117", "Q118", "Q120", "Q121", "Q122", "Q123", "Q124", "Q125","Q127", "Q128", "Q129", "Q130", "Q131", "Q132", "RiskAversion", "GeneralTrust","DecisionIntuitive", "Q149_1", "Q149_2", "Q149_3", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "StartDate", "EndDate", "Stage")
 
@@ -133,7 +126,6 @@ VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAcc
 AskData$firstasktreat <- ifelse(is.na(AskData$firstasktreat) & is.na(AskData$OxfamDonation), "international_happyfirst", AskData$firstasktreat)
     
 
-
 VarNames <- c(VarNames1,VarNames2)
 
 
@@ -144,12 +136,11 @@ colnames(AskData) <- VarNames
 
 
 
-
 ```
 
 ### Merge data columns
 
-We have a lot of variables that record the same but are labeled differently in different experiments. Try to merge those. DR: Maybe Anka can help with this
+We have a lot of variables that record the same but are labeled differently in different experiments. Try to merge those. DR: Maybe Anca can help with this
 
 
 ```{r}
