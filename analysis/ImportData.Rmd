@@ -115,7 +115,7 @@ NonstudentsSecondAsk$code <- ifelse(is.na(NonstudentsSecondAsk$code), as.charact
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
 AskData <- bind_rows(FirstAsk, SecondAsk)
-
+  
 AskData <- AskData[colSums(!is.na(AskData)) > 0] #@removes rows with only missing data 
 
 AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2)
