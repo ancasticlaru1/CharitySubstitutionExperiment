@@ -34,13 +34,13 @@ capCont <- "Continuous covariates"
 # add the group =  option in order to compare between the treatments
 
 RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
-
+  
 ```
 
 *Comments on previous chunk:*
 
 - DR, @GR: We should do variable defining/renaming elsewhere
-- The table of majors is painful. I recall I subcategorised these elsewhere; wil try to fix (or maybe Anca can do that)
+- The table of majors is painful. I recall I subcategorised these elsewhere; will try to fix (or maybe Anca can do that)
 
 PAP: 
 > If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
@@ -55,6 +55,12 @@ TableDonationExeter <- AskDataExeter %>% ungroup() %>% drop_na(Donation, Treatme
 TableDonationExeter
 
 ```
+
+
+*Comments on previous chunk:*
+DR, @GR: Let's include some additional  statistical measures (e.g., shares donating, quantiles)  and perhaps a scatterplot.  We should do something like testing for the influence of outliers and testing for "non-normality" or multiple peaks.  Of course, I don't expect the data to be normal as there is censoring/corner solution at the minimum and maximum donation and  perhaps a two-step hurdle ( intensive and extensive margin decisions).  So what would be the equivalent thing to test for?
+
+Also some of this diagnostic testing will have to do with the " impact of the treatment".  Let me try to find some references on this...
 
 ##Main comparisons
 
@@ -78,6 +84,9 @@ PAP:
 *Ex post update:*  The nonstudent response was small, and we were required to contact all students simultaneously; thus we have little power to distinguish the 'relative timing' effects.
 
 ```{r Statistical tests without controls}
+#Fisher's exact test (for categorical outcomes and treatments) 
+#Wilcoxon rank-sum test for continuous outcome variables.
+#Also "randomization statistical inference"?
 
 ```
 
@@ -89,6 +98,12 @@ AskDataExeter %>% ungroup() %>% ggplot(aes(x = Stage, y = Donation, color = Trea
 
 
 ```
+
+*Comments on previous chunk:*
+- DR: connect the lines in graph for 'same treatment'... from "0" for "No-ask treatments" perhaps? (also to address the fact that some are equal and thus overshadowed)
+- DR: scale should include 0 (otherwise it's confusing)
+- Maybe do also for pooled groups "No-ask --> Ask", "Ask-Ask",  etc?
+- Add error bars?
 
 
 

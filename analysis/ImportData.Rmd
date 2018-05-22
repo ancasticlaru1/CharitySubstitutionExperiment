@@ -307,3 +307,15 @@ AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF
 
 *Comments on previous chunk:*
 - DR @GR: I don't think we want to sum Earnings_check and gamble_check; why did you think so? 
+
+
+#Some Stata code that might be useful to integrate in:
+
+##Categorizing variables
+  global OUTCOMES Donation Donated DonatedAll DonatedNothing Happiness choosechar
+  global TREATMENTS Treatment WonPrize
+  global CHARACTERISTICS Gender Age RelConfession Race UniStudent FirstLangEng FluentEng YearsEnglish NativeLanguage BirthNationUK Nation Siblings SiblBirthOrder MaritalStatus Child ChildrenNo LivedAbroad ImpairC EducationMother EducationFather WorkMother WorkFather BirthDate
+  global PERSONALITY RiskAttitude TrustGeneral PersExtrovert PersCritical PersDependable PersAnxious PersOpenness PersReserved PersSympathetic PersCareless PersCalm PersConventional ValueAchieve ValueStimu ValueSelfDir ValueBenevol ValueTradition ValueConformity ValueSecurity PersWorth PersQuality ValuePower ValueHedon ValueUniversal PersFail PersCompar PersNotProud PersPosAtt PersSatisfied PersNoRespect PersUseless PersNoGood
+  global ATTITUDES AuthoritarianValues1 AuthoritarianValues2 AuthoritarianValues3 AuthoritarianValues4 IdeologyHomosexuality IdeologyProstitution IdeologyAbortion IdeologyDivorce IdeologySex
+  global METADATA code StartDate EndDate Progress Durationinseconds Finished RecordedDate ResponseId FinishedSurvey ExperimentParticipation
+
