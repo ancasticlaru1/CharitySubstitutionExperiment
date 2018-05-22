@@ -8,33 +8,39 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(labelled)
 library(reporttools)
+library(magrittr)
 ```
 
 ##Background: summary statistics and diagnostics
 
 (Note: much of this discussion is copied from the Pre-analysis plan (PAP); see analysisplan_substn_excerpt_comments.md)
 
-R: suggest following changes: First two paragraphs of the  Background I would shift as first paragraph of Main comparison (otherwise I do not see a difference in summary statistics and Main comparisons (edited)
+R: suggest following changes: First two paragraphs of the Background I would shift as first paragraph of Main comparison (otherwise I do not see a difference in summary statistics and Main comparisons (edited)
 For summary statistics I would just 
-
 
 We present summary statistics of the donation incidence, levels, and distribution by charity and treatment, as well as key demographics of our population(s) 
 
 
 ```{r Summary statistics}
 # Define the categorical variables
-varsCat <- AskData %>% select(SEX, RACE, RELIG, SINGLE, `UNI STDNT`, STUDIES, MOMJOB, DADJOB, ABROAD) %>% rename(Gender = SEX, Race = RACE , Religion = RELIG, Single = SINGLE, `University student` = `UNI STDNT`, Studies = STUDIES, `Job: Mother` = MOMJOB, `Job: Father`= DADJOB, `Stay abroad` = ABROAD) %>% as.data.frame()
+varsCat <- AskData %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()
 
-varsCont <- AskData %>% select(SIBLINGS, SIBORDER, NUMCHILD) %>% rename(Siblings = SIBLINGS, `Sibling order` = SIBORDER, `Num. of children`= NUMCHILD) %>% as.data.frame()
+
+varsCont <- AskData %>% select(siblings, siborder, numchild) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame()
 
 capCat  <- "Categorical covariates"
-capCat <- "Continuous covariates"
+capCont <- "Continuous covariates"
 
 # add the group =  option in order to compare between the treatments
 
 RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
 
 ```
+
+*Comments on previous chunk:*
+
+- DR, @GR: We should do variable defining/renaming elsewhere
+- The table of majors is painful. I recall I subcategorised these elsewhere; wil try to fix (or maybe Anca can do that)
 
 PAP: 
 > If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
