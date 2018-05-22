@@ -23,10 +23,10 @@ We present summary statistics of the donation incidence, levels, and distributio
 
 ```{r Summary statistics}
 # Define the categorical variables
-varsCat <- AskData %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()
+varsCat <- AskData %>% ungroup() %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad, CharityTreatf) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()  %>%  group_by(CharityTreatf)
 
 
-varsCont <- AskData %>% select(siblings, siborder, numchild) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame()
+varsCont <- AskData %>% ungroup() %>% select(siblings, siborder, numchild, CharityTreatf) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame() %>%  group_by(CharityTreatf)
 
 capCat  <- "Categorical covariates"
 capCont <- "Continuous covariates"
