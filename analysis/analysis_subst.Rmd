@@ -42,6 +42,7 @@ We present summary statistics of the donation incidence, levels, and distributio
 
 
 ```{r Summary statistics}
+
 # Define the categorical variables
 varsCat <- AskData %>% ungroup() %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad, CharityTreatf) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()  %>%  group_by(CharityTreatf)
 
@@ -53,6 +54,7 @@ capCont <- "Continuous covariates"
 # add the group =  option in order to compare between the treatments
 
 RandomizationTableCat <- tableNominal(vars = vanrsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
+# RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
   
 ```
 
