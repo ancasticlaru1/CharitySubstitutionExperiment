@@ -71,6 +71,8 @@ FirstAsk <- bind_rows(StudentsFirstAsk,NonstudentsFirstAsk) #stacks the rows for
 FirstAsk <- filter(FirstAsk, firstasktreat == "noask" | firstasktreat == "international_ha" | firstasktreat == "international_hb" | firstasktreat == "domestic_happyafter" | firstasktreat == "domestic_happyfirst" | firstasktreat == "domestic_ha" | firstasktreat == "domestic_hb"  | firstasktreat == "international_happybefore" | firstasktreat == "international_happyafter") #Removes before/after treatments here. (DR: might later recover for fancy statistics?)
 FirstAsk$Stage <- 1
 ```
+**Comments on above chunk** 
+- DR, @GR: Perhaps we should use shorter names for data frames to make the code  less bulky?
 
 ### Second ask
 ```{r}
@@ -288,7 +290,7 @@ AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "G
 
 AskDataExeter <- AskDataExeter %>% 
   rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
-  mutate(earnings_1 = Earnings_check + gamble_check) t%>% 
+  mutate(earnings_1 = Earnings_check + gamble_check) %>% 
   select(everything(),-dropflag, -satisfiedexperiment_1, -comments, -comments_1, -Earnings_check, -gamble_check, -countingorder_1, -countingorder_2)
 
 AskDataExeter <- AskDataExeter %>% 
@@ -300,12 +302,14 @@ gather(key = variable, value, donationpresent_1, donationpresent_2, donationstat
 
 AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF" = "0" , "Oxfam - UNICEF" = "1", "WWF - UNICEF" = "2")
 
-
 ```
 
 *Comments on previous chunk:*
 - DR @GR: I don't think we want to sum Earnings_check and gamble_check; why did you think so? 
 
+*Overall comments*
+- DR @GR: Don't we want to make lots more variables "factor" rather than 'character' variables?
+- DR @GR: Do we to define  aggregates of these treatment variables? ... E.g., a treatment variable "first stage treatment" and "second stage treatment"
 
 #Some Stata code that might be useful to integrate in:
 

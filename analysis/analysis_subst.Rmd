@@ -22,15 +22,17 @@ library(magrittr)
 ###Filiz-Ozbay, N. Uler 
 
 - "Mann-Whitney tests confirm that the donations [to the rebated cause?] increase significantly as the rebate rate increases from 0.3 to 0.5, from 0.5 to 0.7 and from 0.7 to 0.9 (all p-values are less than 0.05)
-- total giving increases with the rebate rate in both experiments.
-- 
 
+- total giving increases with the rebate rate in both experiments.
+
+- Ranksum, e.g., "ranksum animal if treatment!=2&rebate!=30&rebate!=50&rebate!=70, by(rebate)" also with depvars homeless and total_giving (not sure where this is reported)
+
+ 
 Reinstein (earlier analysis)
 
 Donkers ea
 
-
-
+ 
 ##Background: summary statistics and diagnostics
 
 (Note: much of this discussion is copied from the Pre-analysis plan (PAP); see analysisplan_substn_excerpt_comments.md)
@@ -39,6 +41,8 @@ R: suggest following changes: First two paragraphs of the Background I would shi
 For summary statistics I would just 
 
 We present summary statistics of the donation incidence, levels, and distribution by charity and treatment, as well as key demographics of our population(s) 
+
+Todo: Add helpful commands for loading data, e.g., "d = as.data.frame(read.csv2(file=file.choose()))""
 
 
 ```{r Summary statistics}
@@ -53,9 +57,9 @@ capCont <- "Continuous covariates"
 
 # add the group =  option in order to compare between the treatments
 
-RandomizationTableCat <- tableNominal(vars = vanrsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
 # RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
   
+
 ```
 
 *Comments on previous chunk:*
@@ -111,6 +115,20 @@ PAP:
 
 bimatrix = matrix(,ncol=2)
 fisher.test()
+
+#from Dogan: 
+
+fisher = function(A,B) {
+  # Convenience wrapper function for Fisher's exact test [FET]
+  m = matrix(c(
+    sum(A), length(A)-sum(A),
+    sum(B), length(B)-sum(B)), byrow=T, nrow=2)
+  print(fisher.test(m))
+  print(m)
+  return(fisher.test(m))
+}
+
+#fisher(AskDataExeter[AskData$Stage==2& AskData$CharityTreatf=="Enmity", ]$Donation, AskDataExeter[AskDataExeter$Stage==2& AskDataExeter$GroupRelationship=="Neutral",]$Donation)
 
 
 ```
