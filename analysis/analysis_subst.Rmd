@@ -128,10 +128,18 @@ fisher = function(A,B) {
   return(fisher.test(m))
 }
 
-#fisher(AskDataExeter[AskData$Stage==2& AskData$CharityTreatf=="Enmity", ]$Donation, AskDataExeter[AskDataExeter$Stage==2& AskDataExeter$GroupRelationship=="Neutral",]$Donation)
+fisher(AskData[which(AskData$Stage==2 & !is.na(AskData$Donation) & !(AskData$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation, AskData[which(AskData$Stage==2 & !is.na(AskData$Donation) & (AskData$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation) 
 
-
+#fisher(d[d$Shares=="Equal"& d$GroupRelationship=="Enmity", ]$S1.Contrib, 
+       d[d$Shares=="Equal"& d$GroupRelationship=="Neutral",]$S1.Contrib) # p = 0.002, OR = 4.264 [95%CI: 1.593, 12.298]
 ```
+**Comments on above chunk** 
+DR, @GR:
+
+- I get an error in the fisher command, yet all the entries I've selected seem to be non-negative and finite. Why?
+
+- Also, we need better ways of selecting the treatments here.. can you advise?
+
 
 ```{r Plots}
 AskData %>% ungroup() %>% group_by(Stage, CharityTreatf) %>% drop_na(Donation, CharityTreatf) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)

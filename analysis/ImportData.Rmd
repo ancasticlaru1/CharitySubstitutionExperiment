@@ -271,6 +271,7 @@ AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf)
 
 AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
+
 ```
 
 *Comments on previous chunk:*
@@ -281,6 +282,7 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 - DR, 14 May 2018: I shortened the variable coding for students (tested as identical) and add(ing) the nonstudent bit now
 
 - DR 21 May 2018: There are 2 lists of "VarsToKeep" -- why? which was intended?
+
 
 ## Exeter Piggy back
 
