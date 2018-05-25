@@ -17,7 +17,6 @@ library("dataMaid")
 library("qualtRics")
 ```
 
-  
 # Import data 
 
 ## Omnibus-linked study
@@ -270,7 +269,6 @@ AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf)
 
 AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 
-
 ```
 
 *Comments on previous chunk:*
@@ -290,7 +288,7 @@ AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "G
 
 AskDataExeter <- AskDataExeter %>% 
   rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
-  mutate(earnings_1 = Earnings_check + gamble_check) %>% 
+  mutate(earnings_1 = Earnings_check + gamble_check) t%>% 
   select(everything(),-dropflag, -satisfiedexperiment_1, -comments, -comments_1, -Earnings_check, -gamble_check, -countingorder_1, -countingorder_2)
 
 AskDataExeter <- AskDataExeter %>% 
@@ -313,7 +311,7 @@ AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF
 
 ##Categorizing variables
   global OUTCOMES Donation Donated DonatedAll DonatedNothing Happiness choosechar
-  global TREATMENTS Treatment WonPrize
+  global TREATMENTS Treatment WonPrize is
   global CHARACTERISTICS Gender Age RelConfession Race UniStudent FirstLangEng FluentEng YearsEnglish NativeLanguage BirthNationUK Nation Siblings SiblBirthOrder MaritalStatus Child ChildrenNo LivedAbroad ImpairC EducationMother EducationFather WorkMother WorkFather BirthDate
   global PERSONALITY RiskAttitude TrustGeneral PersExtrovert PersCritical PersDependable PersAnxious PersOpenness PersReserved PersSympathetic PersCareless PersCalm PersConventional ValueAchieve ValueStimu ValueSelfDir ValueBenevol ValueTradition ValueConformity ValueSecurity PersWorth PersQuality ValuePower ValueHedon ValueUniversal PersFail PersCompar PersNotProud PersPosAtt PersSatisfied PersNoRespect PersUseless PersNoGood
   global ATTITUDES AuthoritarianValues1 AuthoritarianValues2 AuthoritarianValues3 AuthoritarianValues4 IdeologyHomosexuality IdeologyProstitution IdeologyAbortion IdeologyDivorce IdeologySex

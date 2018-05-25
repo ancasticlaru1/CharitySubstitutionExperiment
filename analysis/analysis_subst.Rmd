@@ -10,6 +10,26 @@ library(labelled)
 library(reporttools)
 library(magrittr)
 ```
+##What other papers do (statistical analysis)
+###EK (17): 
+- Allocation to Unicef ~ 'productivity' of donating to Other (overall? where is that regression?)
+- Total allocation ~  'productivity' Other | split by whether Other is more/less productive than Unicef (where is this table?)
+- Difference in mean donation to Unicef when paired with another charity relative to pairing with Global-Child; significance tests (which?) with a mht correction (which?)
+- Allocation to Unicef ~  'productivity' Other, vector of controls (sex, age, course) (on/off), treatment dummies (the charity paired), interaction of this with 'productivity Other'; OLS, Tobit robustness check
+- Allocation to Unicef~  productivity-other interact with: (individual's perceived similarity of charities, favorability difference, round, etc) (Table 6)
+- ... main regressions with control for first-period price
+ 
+###Filiz-Ozbay, N. Uler 
+
+- "Mann-Whitney tests confirm that the donations [to the rebated cause?] increase significantly as the rebate rate increases from 0.3 to 0.5, from 0.5 to 0.7 and from 0.7 to 0.9 (all p-values are less than 0.05)
+- total giving increases with the rebate rate in both experiments.
+- 
+
+Reinstein (earlier analysis)
+
+Donkers ea
+
+
 
 ##Background: summary statistics and diagnostics
 
@@ -25,15 +45,14 @@ We present summary statistics of the donation incidence, levels, and distributio
 # Define the categorical variables
 varsCat <- AskData %>% ungroup() %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad, CharityTreatf) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()  %>%  group_by(CharityTreatf)
 
-
-varsCont <- AskData %>% ungroup() %>% select(siblings, siborder, numchild, CharityTreatf) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame() %>%  group_by(CharityTreatf)
+nvarsCont <- AskData %>% ungroup() %>% select(siblings, siborder, numchild, CharityTreatf) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame() %>%  group_by(CharityTreatf)
 
 capCat  <- "Categorical covariates"
 capCont <- "Continuous covariates"
 
 # add the group =  option in order to compare between the treatments
 
-RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
+RandomizationTableCat <- tableNominal(vars = vanrsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
   
 ```
 
@@ -60,8 +79,8 @@ TableDonationExeter
 *Comments on previous chunk:*
 DR, @GR: Let's include some additional  statistical measures (e.g., shares donating, quantiles)  and perhaps a scatterplot.  We should do something like testing for the influence of outliers and testing for "non-normality" or multiple peaks.  Of course, I don't expect the data to be normal as there is censoring/corner solution at the minimum and maximum donation and  perhaps a two-step hurdle ( intensive and extensive margin decisions).  So what would be the equivalent thing to test for?
 
-Also some of this diagnostic testing will have to do with the " impact of the treatment".  Let me try to find some references on this...
-
+Also some of this diagnostic testing will have to do with the "impact of the treatment".  Let me try to find some references on this...
+  
 ##Main comparisons
 
 PAP:
@@ -86,7 +105,11 @@ PAP:
 ```{r Statistical tests without controls}
 #Fisher's exact test (for categorical outcomes and treatments) 
 #Wilcoxon rank-sum test for continuous outcome variables.
-#Also "randomization statistical inference"?
+#Also "randomization statistical inference"? (Mosaic package or "ri" package?)
+
+bimatrix = matrix(,ncol=2)
+fisher.test()
+
 
 ```
 
@@ -94,8 +117,6 @@ PAP:
 AskData %>% ungroup() %>% group_by(Stage, CharityTreatf) %>% drop_na(Donation, CharityTreatf) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 AskDataExeter %>% ungroup() %>% ggplot(aes(x = Stage, y = Donation, color = Treatment)) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
-
-
 
 ```
 
@@ -106,13 +127,45 @@ AskDataExeter %>% ungroup() %>% ggplot(aes(x = Stage, y = Donation, color = Trea
 - Add error bars?
 
 
+> PAP: Even under randomization, there will typically be an inexact balance in predetermined characteristics across treatments. Thus, regressions controls for predetermined observable characteristics (such as gender or income) can sometimes make estimates more efficient. Thus we report regressions with controls. We will perform model-fitting (e.g., stepwise regression) to determine the most efficient set of predetermined controls. We will run linear and Poisson-exponential regressions for charitable giving outcomes (as these are bounded variables), and also do robustness checks for other popular specifications used for bounded dependent variables, such as Tobit models. Similarly we will also report linear probability models and logit models for binary dependent variables, especially the extensive margin (donated a positive amount to a particular charity).  We are not likely report so-called "conditional on positive" effects, as these are difficult to identify  without an exogenous instrument for the extensive margin decision (we will only do so if such an instrument/shifter  becomes apparent to us in a very obvious way after collecting the data.)
 
-PAP: Even under randomization, there will typically be an inexact balance in predetermined characteristics across treatments. Thus, regressions controls for predetermined observable characteristics (such as gender or income) can sometimes make estimates more efficient. Thus we report regressions with controls. We will perform model-fitting (e.g., stepwise regression) to determine the most efficient set of predetermined controls. We will run linear and Poisson-exponential regressions for charitable giving outcomes (as these are bounded variables), and also do robustness checks for other popular specifications used for bounded dependent variables, such as Tobit models. Similarly we will also report linear probability models and logit models for binary dependent variables, especially the extensive margin (donated a positive amount to a particular charity).  We are not likely report so-called "conditional on positive" effects, as these are difficult to identify  without an exogenous instrument for the extensive margin decision (we will only do so if such an instrument/shifter  becomes apparent to us in a very obvious way after collecting the data.)
+
+##Regression analysis
+
+Below, we run the 'matrix' of regressions (iterate function?) for
+
+- students, nonstudents, pooled
+- s2 donation, total donation, s2 donated,  (and 'deltas?'), 
+- pooled/disagreggated treatments, and with/without 'similar charity' interaction and 'controls' for charity type
+- linear, Poisson-exponential, (tobit), (quantile?)
+- no 'noise-reduction' controls, ad-hoc controls, model-fit controls (Ridge Regression with regularization over noise variables only)
+
+Also:
+- ? what to do with S1 donations? (see previous and other papers; endogeneity/mediation an issue)
+  - control 
+- adding Lee bounds for each? 
+
+- outcome 'donation to charity in s2' with controls for charity type, s1 charity type,  interaction?
+
 
 
 ```{r Regressions with controls, model fitting}
 
+#e.g., stata:     reg Donation2 DfirstaskDom DfirstaskInt Dsecondaskdom Dbothaskdom Dbothaskint, cluster(code)
+
+reg0 <- lm(AskData$Donation ~ AskData$CharityTreatf)
+
+#summary(lm(fev1_litres ~ ht_cm) )
+
+
+
 ```
+
+Include estimates incorporating the Lee (2009) bounds [?alt Horowitz and Manski (2000a)?]
+
+> amounts to first identifying the excess number of individuals who are induced to be selected... [in our case an non-attriters] because of the treatment and then “trimming” the upper and lower tails of the outcome ... distribution by this number, yielding a worst-case scenario bound. The assumptions for identifying the bounds are already assumed in conventional models for sample selection: (1) the regressor of interest is independent of the errors in the outcome and selection equations and (2) the selection equation can be written as a standard latent variable binary response model. In the case of an experiment, random assignment ensures that the first assumption holds. It is proven that the trimming procedure yields the tightest bounds for the average treatment effect that are consistent with the observed data. No exclusion restrictions are required, nor is a bounded support for the outcome variable.
+
+Illustrative slides on both of these here: http://economics.ozier.com/econ626/lec/econ626lecture10_slides.pdf
 
 ```{r Creating matrix of robustness checks for alternate specifications, inclusion criteria}
 
