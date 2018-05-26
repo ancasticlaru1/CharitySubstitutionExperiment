@@ -209,7 +209,6 @@ append using ../Temp/Students
     gen Cat_ask1_sub = 1*DfirstaskDom+2*DfirstaskInt
     gen Cat_ask2_sub = 1*Dsecondaskdom
 
-
     gen Dnochild = ChildrenNo==0
 
     drop totaldonation
