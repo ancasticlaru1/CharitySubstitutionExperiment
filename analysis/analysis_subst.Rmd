@@ -132,6 +132,9 @@ fisher(AskData[which(AskData$Stage==2 & !is.na(AskData$Donation) & !(AskData$Cha
 
 #fisher(d[d$Shares=="Equal"& d$GroupRelationship=="Enmity", ]$S1.Contrib, 
        d[d$Shares=="Equal"& d$GroupRelationship=="Neutral",]$S1.Contrib) # p = 0.002, OR = 4.264 [95%CI: 1.593, 12.298]
+
+###Ranksum
+#wilcoxon(subd[subd$Shares=="High", ]$EscThreshold, subd[subd$Shares=="Equal",]$EscThreshold)
 ```
 **Comments on above chunk** 
 DR, @GR:
@@ -196,6 +199,12 @@ Include estimates incorporating the Lee (2009) bounds [?alt Horowitz and Manski 
 Illustrative slides on both of these here: http://economics.ozier.com/econ626/lec/econ626lecture10_slides.pdf
 
 ```{r Creating matrix of robustness checks for alternate specifications, inclusion criteria}
+
+# Logistic regression
+#S1.logist <- glm(S1.Contrib ~ relevel(Shares, ref="High") + GroupRelationship, family=binomial(link='logit'), data=d)
+#summary(S1.logist)
+#confint(S1.logist, level=0.95)
+#anova(S1.logist, test="Chisq") #not sure what this part does
 
 ```
 
