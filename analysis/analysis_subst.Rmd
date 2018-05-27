@@ -1,7 +1,12 @@
 ---
 title: "Analysis of Substitution patterns from experimental data"
-output: html_document
+output: html_d
+#params:
+ # d: !r Sys.Date()<Esc>pocument
 ---
+
+
+Date: `r params$d`
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -10,6 +15,7 @@ library(labelled)
 library(reporttools)
 library(magrittr)
 ```
+
 ##What other papers do (statistical analysis)
 ###EK (17): 
 - Allocation to Unicef ~ 'productivity' of donating to Other (overall? where is that regression?)
@@ -27,7 +33,6 @@ library(magrittr)
 
 - Ranksum, e.g., "ranksum animal if treatment!=2&rebate!=30&rebate!=50&rebate!=70, by(rebate)" also with depvars homeless and total_giving (not sure where this is reported)
 
- 
 Reinstein (earlier analysis)
 
 Donkers ea
@@ -48,9 +53,9 @@ Todo: Add helpful commands for loading data, e.g., "d = as.data.frame(read.csv2(
 ```{r Summary statistics}
 
 # Define the categorical variables
-varsCat <- AskData %>% ungroup() %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad, CharityTreatf) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()  %>%  group_by(CharityTreatf)
+varsCat <- AD %>% ungroup() %>% select(sex, race, relig, single, `uni stdnt`, studies, momjob, dadjob, abroad, CharityTreatf) %>% rename(Gender = sex, Race = race , Religion = relig, Single = single, `University student` = `uni stdnt`, Studies = studies, `Job: Mother` = momjob, `Job: Father`= dadjob, `Stay abroad` = abroad) %>% as.data.frame()  %>%  group_by(CharityTreatf)
 
-nvarsCont <- AskData %>% ungroup() %>% select(siblings, siborder, numchild, CharityTreatf) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame() %>%  group_by(CharityTreatf)
+nvarsCont <- AD %>% ungroup() %>% select(siblings, siborder, numchild, CharityTreatf) %>% rename(Siblings = siblings, `Sibling order` = siborder, `Num. of children`= numchild) %>% as.data.frame() %>%  group_by(CharityTreatf)
 
 capCat  <- "Categorical covariates"
 capCont <- "Continuous covariates"
@@ -59,7 +64,6 @@ capCont <- "Continuous covariates"
 
 # RandomizationTableCat <- tableNominal(vars = varsCat, cap = capCat, vertical = FALSE, lab = "tab:RandTableCat", longtable = TRUE, booktabs = TRUE, cumsum = FALSE)
   
-
 ```
 
 *Comments on previous chunk:*
@@ -67,23 +71,27 @@ capCont <- "Continuous covariates"
 - DR, @GR: We should do variable defining/renaming elsewhere
 - The table of majors is painful. I recall I subcategorised these elsewhere; will try to fix (or maybe Anca can do that)
 
+- DR, @GR, 27 May 2018: Shall we do a systematic classification of 'groups' somewhere, as well as treatment and outcome variables, and lists of desired analyses? Then we could produce sets of tables/results in a systematic way, as we did in stata
+
 PAP: 
 > If the data suggests strong departures from the  linear or exponential models, e.g., bi-modality or sensitivity to outliers,  we may also report specifications  more appropriate to these functional forms, and will make an argument for the suitability of these,  noting this was not central to our initial plan.
 
 We focus these tests on the summary statistics presented above. (Donation levels by charity and treatment, demographics of our population(s))
 
 ```{r Diagnostic tests}
-TableDonation <- AskData %>% ungroup() %>% drop_na(Donation, CharityTreatf) %>% group_by(CharityTreatf, Stage) %>% dplyr::summarize(count=n(), Donation = mean(Donation, na.rm = F))
+TableDonation <- AD %>% ungroup() %>% drop_na(Donation, CharityTreatf) %>% group_by(CharityTreatf, Stage) %>% dplyr::summarize(count=n(), Donation = mean(Donation, na.rm = F))
 TableDonation
 
-TableDonationExeter <- AskDataExeter %>% ungroup() %>% drop_na(Donation, Treatment) %>% group_by(Treatment, Stage) %>% dplyr::summarize(count=n(), Donation = mean(Donation, na.rm = T))
+TableDonationExeter <- ADE %>% ungroup() %>% drop_na(Donation, Treatment) %>% group_by(Treatment, Stage) %>% dplyr::summarize(count=n(), Donation = mean(Donation, na.rm = T))
 TableDonationExeter
+
+#print(xtable::xtable(data,caption="table with xtable"),type="html",html.table.attributes="border=0"))
 
 ```
 
 
 *Comments on previous chunk:*
-DR, @GR: Let's include some additional  statistical measures (e.g., shares donating, quantiles)  and perhaps a scatterplot.  We should do something like testing for the influence of outliers and testing for "non-normality" or multiple peaks.  Of course, I don't expect the data to be normal as there is censoring/corner solution at the minimum and maximum donation and  perhaps a two-step hurdle ( intensive and extensive margin decisions).  So what would be the equivalent thing to test for?
+DR, @GR: Let's include some additional mpse(statistical measures (e.g., shares donating, quantiles)  and perhaps a scatterplot.  We should do something like testing for the influence of outliers and testing for "non-normality" or multiple peaks.  Of course, I don't expect the data to be normal as there is censoring/corner solution at the minimum and maximum donation and  perhaps a two-step hurdle ( intensive and extensive margin decisions).  So what would be the equivalent thing to test for?
 
 Also some of this diagnostic testing will have to do with the "impact of the treatment".  Let me try to find some references on this...
   
@@ -113,11 +121,10 @@ PAP:
 #Wilcoxon rank-sum test for continuous outcome variables.
 #Also "randomization statistical inference"? (Mosaic package or "ri" package?)
 
-bimatrix = matrix(,ncol=2)
-fisher.test()
+#bimatrix = matrix(,ncol=2)
+#fisher.test()
 
 #from Dogan: 
-
 fisher = function(A,B) {
   # Convenience wrapper function for Fisher's exact test [FET]
   m = matrix(c(
@@ -128,26 +135,32 @@ fisher = function(A,B) {
   return(fisher.test(m))
 }
 
-fisher(AskData[which(AskData$Stage==2 & !is.na(AskData$Donation) & !(AskData$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation, AskData[which(AskData$Stage==2 & !is.na(AskData$Donation) & (AskData$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation) 
+AD$Donated <- AD$Donation>0
+#table(AD$Donated,AD$Donation,useNA = "ifany")
+
+#Fisher must be done on *0/1* variables
+fisher(AD[which(AD$Stage==2 & !is.na(AD$Donation) & !(AD$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation, AD[which(AD$Stage==2 & !is.na(AD$Donation) & (AD$CharityTreatf %in% c("No ask-Domestic", "No ask-Internat."))), ]$Donation) 
+
+#use 'gather' and transformation to simplify this;  DR, @GR, not sure how 'gather' would help here
+#"glimpse()" helps us see the tibble contents
 
 #fisher(d[d$Shares=="Equal"& d$GroupRelationship=="Enmity", ]$S1.Contrib, 
-       d[d$Shares=="Equal"& d$GroupRelationship=="Neutral",]$S1.Contrib) # p = 0.002, OR = 4.264 [95%CI: 1.593, 12.298]
+#       d[d$Shares=="Equal"& d$GroupRelationship=="Neutral",]$S1.Contrib) # p = 0.002, OR = 4.264 [95%CI: 1.593, 12.298]
 
 ###Ranksum
-#wilcoxon(subd[subd$Shares=="High", ]$EscThreshold, subd[subd$Shares=="Equal",]$EscThreshold)
+wilcoxon(subd[subd$Shares=="High", ]$EscThreshold, subd[subd$Shares=="Equal",]$EscThreshold)
 ```
 **Comments on above chunk** 
 DR, @GR:
 
-- I get an error in the fisher command, yet all the entries I've selected seem to be non-negative and finite. Why?
+- I get an error in the Fisher command, yet all the entries I've selected seem to be non-negative and finite. Why?
 
 - Also, we need better ways of selecting the treatments here.. can you advise?
 
-
 ```{r Plots}
-AskData %>% ungroup() %>% group_by(Stage, CharityTreatf) %>% drop_na(Donation, CharityTreatf) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
+AD %>% ungroup() %>% group_by(Stage, CharityTreatf) %>% drop_na(Donation, CharityTreatf) %>% ggplot(aes(x = as.factor(Stage), y = Donation, color = CharityTreatf )) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
-AskDataExeter %>% ungroup() %>% ggplot(aes(x = Stage, y = Donation, color = Treatment)) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
+ADE %>% ungroup() %>% ggplot(aes(x = Stage, y = Donation, color = Treatment)) + stat_summary(fun.y=mean, geom="point", shape=18, size=3)
 
 ```
 
@@ -179,16 +192,13 @@ Also:
 - outcome 'donation to charity in s2' with controls for charity type, s1 charity type,  interaction?
 
 
-
 ```{r Regressions with controls, model fitting}
 
 #e.g., stata:     reg Donation2 DfirstaskDom DfirstaskInt Dsecondaskdom Dbothaskdom Dbothaskint, cluster(code)
 
-reg0 <- lm(AskData$Donation ~ AskData$CharityTreatf)
+reg0 <- lm(AD$Donation ~ AD$CharityTreatf)
 
 #summary(lm(fev1_litres ~ ht_cm) )
-
-
 
 ```
 
@@ -207,7 +217,6 @@ Illustrative slides on both of these here: http://economics.ozier.com/econ626/le
 #anova(S1.logist, test="Chisq") #not sure what this part does
 
 ```
-
 
 ##Differentiation of estimated effects (heterogeneity, interactions)
 

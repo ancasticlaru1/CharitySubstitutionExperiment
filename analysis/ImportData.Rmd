@@ -97,18 +97,18 @@ SecondAsk$Stage <- 2
 ### Stack first and second ask
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
-AskData <- bind_rows(FirstAsk, SecondAsk)
+AD <- bind_rows(FirstAsk, SecondAsk)
   
-AskData <- AskData[colSums(!is.na(AskData)) > 0] #@removes rows with only missing data 
+AD <- AD[colSums(!is.na(AD)) > 0] #@removes rows with only missing data 
 
-AskData$happiness_1_2 <- as.factor(AskData$happiness_1_2)
-AskData$happiness_1   <- as.factor(AskData$happiness_1)
-AskData$happiness_1_3 <- as.factor(AskData$happiness_1_3)
-AskData$happiness_1_1 <- as.factor(AskData$happiness_1_1)
+AD$happiness_1_2 <- as.factor(AD$happiness_1_2)
+AD$happiness_1   <- as.factor(AD$happiness_1)
+AD$happiness_1_3 <- as.factor(AD$happiness_1_3)
+AD$happiness_1_1 <- as.factor(AD$happiness_1_1)
 
 DonationVars <- c("s1_don_int_ha", "OxfamDonation", "BHFDonation",  "TotalDonation", "ns1_donint_ha", "ns2_don_dom_hb", "ns2_don_dom_ha","S1Donation","ns1_dondom_ha",  "s1_don_int_hb", "ns2_don_int_hb",  "ns2_don_int_ha", "s1_don_dom_ha", "s1_don_dom_hb")
 
-AskData$AllDonations <- rowSums(AskData[,DonationVars], na.rm=TRUE)
+AD$AllDonations <- rowSums(AD[,DonationVars], na.rm=TRUE)
 
 #DR: maybe keep fewer variables here, or at least put aside the omnibus survey variables and deal with these later
 
@@ -124,16 +124,16 @@ VarNames2 <- c("LinguistTestCloistered", "LinguistTestCaprice", "LinguistTestAcc
 
 # Further fixes
 
-AskData$firstasktreat <- ifelse(is.na(AskData$firstasktreat) & is.na(AskData$OxfamDonation), "international_happyfirst", AskData$firstasktreat)
+AD$firstasktreat <- ifelse(is.na(AD$firstasktreat) & is.na(AD$OxfamDonation), "international_happyfirst", AD$firstasktreat)
     
 
 VarNames <- c(VarNames1,VarNames2)
 
 
-AskData <- select(AskData, keepVars)
+AD <- select(AD, keepVars)
 
 VarNames <- c(VarNames1,VarNames2)
-colnames(AskData) <- VarNames
+colnames(AD) <- VarNames
 
 
 
@@ -152,18 +152,18 @@ varsReplace <- c("SEX", "BIRTH", "RACE")#, "RELIG", "SINGLE", "UNI STDNT","STUDI
 varsKeepReplace <- c("Gender2", "BirthData","Ethnicity")#, "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3")
 
 IterateReplace <- function(rd,kd) {
-  AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd))
+  AD$rd <- with(AD,ifelse(is.na(rd),kd,rd))
 }
 
 IterateReplace("Gender2","SEX")
 IterateReplace("Sex","sex")
 
-# AskData$BirthData <- with(AskData,ifelse(is.na(BirthData),BIRTH,BirthData))
+# AD$BirthData <- with(AD,ifelse(is.na(BirthData),BIRTH,BirthData))
 
-mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
+mapply(function(rd,kd) AD$rd <- with(AD,ifelse(is.na(rd),kd,rd), rd = varsKeep, rd = varsKeepReplace))
 
 # Save merged data @DR took this out as I do not think this is necessary at this stage. We can do this once we have the full dataset
-# write_csv(AskData, "../output/AskData.csv") 
+# write_csv(AD, "../output/AD.csv") 
 
 ```
 **Comments on above chunk**
@@ -187,7 +187,7 @@ mapply(function(rd,kd) AskData$rd <- with(AskData,ifelse(is.na(rd),kd,rd), rd = 
 #First for students
 
 
-AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic",
+AD <- AD %>% mutate(CharityTreatf = case_when(!is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic",
                                                        !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.",
                                                        !is.na(ask_cruk_10_mx25a) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic",
                                                        !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.",
@@ -213,63 +213,63 @@ AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ask_cruk_10_mx25a
 
 #Next for for nonstudents
 #(ns2_don_int_hb, ns2_don_int_ha, ns2_don_dom_hb, ns2_don_dom_ha) 
- #WIP AskData <- AskData %>% mutate(CharityTreatf = case_when(!is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic", !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic", !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.", !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic", !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat." ))  
+ #WIP AD <- AD %>% mutate(CharityTreatf = case_when(!is.na(ns2_don_dom_hb) & str_detect(firstasktreat,"domestic")  ~ "Domestic-Domestic", !is.na(ns2_don_dom_ha) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Domestic", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"domestic")   ~ "Domestic-Internat.", !is.na(ns2_don_int_hb) & str_detect(firstasktreat,"international")   ~ "Internat.-Domestic", !is.na(ask_stc_10_mx25) & str_detect(firstasktreat,"international") ~ "Internat.-Internat.", !is.na(ask_cruk_10_mx25a) & firstasktreat == "noask"  ~ "No ask-Domestic", !is.na(ask_stc_10_mx25) & firstasktreat == "noask"  ~ "No ask-Internat." ))  
 
-AskData$CharityTreatf <- as.factor(AskData$CharityTreatf)
+AD$CharityTreatf <- as.factor(AD$CharityTreatf)
 
-AskData$Charity <- NA
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_int_ha), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_int_hb), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_ha), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(s1_don_dom_hb), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_int_ha), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_int_hb), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_ha), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_hb), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns1_donint_ha), "Oxfam" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ns1_dondom_ha), "BHF" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_stc_10_mx25), "STC" , Charity))
-AskData <- AskData %>% mutate(Charity = ifelse(!is.na(ask_cruk_10_mx25a), "CRUK" , Charity))
+AD$Charity <- NA
+AD <- AD %>% mutate(Charity = ifelse(!is.na(BHFDonation), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(OxfamDonation), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(s1_don_int_ha), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(s1_don_int_hb), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(s1_don_dom_ha), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(s1_don_dom_hb), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns2_don_int_ha), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns2_don_int_hb), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_ha), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns2_don_dom_hb), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns1_donint_ha), "Oxfam" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ns1_dondom_ha), "BHF" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ask_stc_10_mx25), "STC" , Charity))
+AD <- AD %>% mutate(Charity = ifelse(!is.na(ask_cruk_10_mx25a), "CRUK" , Charity))
 
-AskData$Donation <- NA
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), BHFDonation, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), OxfamDonation, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_int_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_int_hb, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_hb, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ask_stc_10_mx25, Donation ))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ask_cruk_10_mx25a, Donation ))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns1_donint_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns1_dondom_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_hb, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_ha, Donation))
-AskData <- AskData %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_hb, Donation))
+AD$Donation <- NA
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), BHFDonation, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), OxfamDonation, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), s1_don_int_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), s1_don_int_hb, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), s1_don_dom_hb, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ask_stc_10_mx25, Donation ))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ask_cruk_10_mx25a, Donation ))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns1_donint_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns1_dondom_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_int_hb, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_ha, Donation))
+AD <- AD %>% mutate(Donation = ifelse(is.na(Donation), ns2_don_dom_hb, Donation))
 
-AskData$Happiness <- NA
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_1, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_2, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_3, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), current_happiness_1, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), s1happyafter_int_1, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), s1happynoask_1, Happiness))
-AskData <- AskData %>% mutate(Happiness = ifelse(is.na(Happiness), s1happynoask_1_1, Happiness))
+AD$Happiness <- NA
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_1, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_2, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1_3, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), happiness_1, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), current_happiness_1, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), s1happyafter_int_1, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), s1happynoask_1, Happiness))
+AD <- AD %>% mutate(Happiness = ifelse(is.na(Happiness), s1happynoask_1_1, Happiness))
 
-Happiness <- AskData %>% select(Happiness, contains('happ'))
+Happiness <- AD %>% select(Happiness, contains('happ'))
 varsToKeep <- c("RiskAversion", "GeneralTrust","DecisionIntuitive", "InterestedPolitics", "PoliticAttitudeLeftRight", "JustifiedHomosexuality","JustifiedProstitution", "JustifiedAbortion", "JustifiedDivcorce", "JustifiedSex", "AgreeInequality", "AgreegovernmentOwnership", "AgreeHardWork","ImpairmentHearSight", "ImpairmentDescription", "code","AllDonations","happiness_1_1", "happiness_1_2", "happiness_1_3", "happiness_1", "current_happiness_1","s1happyafter_int_1", "s1happynoask_1", "s1happynoask_1_1", "Q174","Q175", "SEX", "BIRTH", "RACE", "RELIG", "SINGLE", "UNI STDNT","STUDIES", "PREV PAR", "EXP PREF", "MOMJOB", "DADJOB", "MOMEDUC","DADEDUC", "SIBLINGS", "SIBORDER", "CHILD", "NUMCHILD", "birth_nation","ABROAD", "NATION", "ENGYEARS", "FIRSTLANG", "FLUENT", "HOMELANG","LANGS",  "POWER", "ACHIEVE", "HEDON", "STIMUL", "SELFD","UNIVE", "BENEV", "TRADI", "CONFO", "SECUR", "WORTH", "GOODQ", "FAIL", "COMPAR", "PROUD", "POSAT", "SATIS", "RESPECT", "USELESS","NOGOOD", "SPACE", "BROAD", "EMANA", "EDIBL", "ANIMO", "PACT","CLOIS", "CAPRI", "ACCUS", "ALLUS", "auth1", "auth2", "auth3","auth4", "EYES1", "EYES2", "EYES3", "EYES4", "EYES5", "EYES6","EYES7", "EYES8", "EYES9", "EYES10", "EYES11", "EYES12", "EYES13","EYES14", "EYES15", "EYES16", "EYES17", "EYES18", "RISK", "trust","decisionmode", "Gender2", "BirthData","Ethnicity", "Religion", "MaritalStatus", "PreviousExperiment", "PReferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK", "LivedOtherCountries1", "LivedOtherCountries2", "LivedOtherCountries3", "YearsOtherCountries1","YearsOtherCountries2","YearsOtherCountries3", "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "ImportantPower", "ImportantSuccess", "ImportantHedonsim", "ImportantStimulation","ImportantCreativity", "ImportantUniversalism", "ImpportantBenevolence", "ImportantTradition", "ImportantConformity", "ImportantSecurity", "SelfEsteemWorth", "SelfEsteemQuality", "SelfEsteemFailure", "SelfEsteemGoodWork", "SelfEsteemNoProud", "SelfEsteemPositive", "SelfEsteemSatisfied", "SelfEsteemLittleRespect", "SelfEsteemUseless", "SelfEsteemNoGood", "LinguistTestSpace", "LinguistTestBroaden","LinguistTestEmanate", "LinguistTestEdible", "LinguistTestAnimosity", "LinguistTestPact")
 
   varsToKeep <- c("RiskAversion", "GeneralTrust", "code", "sex", "birth", "race", "relig", "single", "uni stdnt","studies", "prev par", "exp pref", "momjob", "dadjob", "abroad","momeduc","dadeduc", "siblings", "siborder", "child", "numchild", "risk", "trust", "BirthData", "Religion", "MaritalStatus", "PreviousExperiment", "PreferenceExperiment", "OccupationMother", "OccupationFather", "EducationMother", "EducationFather","Siblings", "SiblingsOlder", "Children", "ChildrenNumber", "BornUK", "BornCountry", "YearsInUK", "LanguageEnglishFirst", "LanguageEnglishFluent","LanguageMainChildhood","LanguageOther",  "LivedOutsideUK",  "PersonalityExtroverted", "PersonalityCritical", "PersonalityDependable", "PersonalityAnxious", "PersonalityOpen", "PersonalityReserved","PersonalitySympathetic", "PersonalityCareless", "PersonalityCalm", "Personalityconventional", "StartDate", "EndDate")
 
-AskData <-AskData %>% select(code, Stage, CharityTreatf, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) 
+AD <-AD %>% select(code, Stage, CharityTreatf, Charity, Donation, Happiness, Student, one_of(varsToKeep)) %>% group_by(code) 
 # %>% #filter((!is.na(Donation)& Stage == 2) |Stage == 1)
 
-AskData <- AskData %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf) 
+AD <- AD %>% arrange(code, desc(Stage)) %>% fill(CharityTreatf) 
 
-AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
+ADNA <- AD %>% filter(!is.na(Donation) & is.na(code))
 
 
 ```
@@ -287,22 +287,22 @@ AskDataNA <- AskData %>% filter(!is.na(Donation) & is.na(code))
 ## Exeter Piggy back
 
 ```{r Import piggy back, message=FALSE, warning=FALSE, paged.print=FALSE}
-AskDataExeter <- read_csv("../data/substitution_giving_data_exeter1-round1_round2.csv")
-AskDataExeter$`date-time-s1` <- as.POSIXct(AskDataExeter$`date-time-s1`, tz = "GMT", "%y%m%d_%H%M")
+ADE <- read_csv("../data/substitution_giving_data_exeter1-round1_round2.csv")
+ADE$`date-time-s1` <- as.POSIXct(ADE$`date-time-s1`, tz = "GMT", "%y%m%d_%H%M")
 
-AskDataExeter <- AskDataExeter %>% 
+ADE <- ADE %>% 
   rename( donationpresent_1 = donation_present, donationstated_1 = donation_stated, happiness_1 = happiness, satisfiedexperiment_1 = satisfied_experiment, countingorder_1 = countingorder, happiness_2 = happiness2, donationpresent_2 = donation_present2, donationstated_2 = donation_stated2, countingorder_2 = countingorder2, ID = `Participant number`) %>%
   mutate(earnings_1 = Earnings_check + gamble_check) %>% 
   select(everything(),-dropflag, -satisfiedexperiment_1, -comments, -comments_1, -Earnings_check, -gamble_check, -countingorder_1, -countingorder_2)
 
-AskDataExeter <- AskDataExeter %>% 
+ADE <- ADE %>% 
 gather(key = variable, value, donationpresent_1, donationpresent_2, donationstated_1, donationstated_2, happiness_1, happiness_2, earnings_1, earnings_2, -ID, -Treatment , na.rm = FALSE, convert = TRUE) %>% 
   separate(variable, into = c("Variable", "Stage"), sep = "_") %>% 
   spread(key = Variable, value = value) %>% replace_na(list(donationpresent = 0)) %>% mutate(Donation = as.numeric(donationpresent), Treatment = as.factor(Treatment), Stage = as.factor(Stage)) 
 
 #note: this "gather" followed by "seperate" and "spread" turns data from wide to long... when we 'pipe' into the gather function we don't need to specify the first argument, the data frame
 
-AskDataExeter$Treatment <-  fct_recode(AskDataExeter$Treatment, "No ask - UNICEF" = "0" , "Oxfam - UNICEF" = "1", "WWF - UNICEF" = "2")
+ADE$Treatment <-  fct_recode(ADE$Treatment, "No ask - UNICEF" = "0" , "Oxfam - UNICEF" = "1", "WWF - UNICEF" = "2")
 
 ```
 
