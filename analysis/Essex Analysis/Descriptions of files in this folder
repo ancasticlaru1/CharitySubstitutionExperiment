@@ -1,0 +1,23 @@
+This document is a short description of each file in the folder
+
+-------------------------------------------------------------------------------------------------------------------
+                                                                  LABELS
+------------------------------------------------------------------------------------------------------------------
+
+Labels_P = file containing all the labels from Patrick's Survey
+
+Labels_DNS = file containing all the labels from David's Non-student survey
+
+Labels_DS = file containing all the labels from David's Student survey
+
+Unique Labels = file containing the whole list of unique labels across all surveys ( this is just a single column list), 
+                made to be easily imported in R
+
+Labels_comparison_P_DNS_DS = file which compares how the different variables correspond to one another across all the surveys. 
+                There are three columns that correspond to the 3 surveys and have the following values:
+      same = when the label name is identical in the survey
+      no - doesn't exist = when that label does not exist at all in the survey
+      different name = when the label exists for the same data, but under a different name (for example: the label "consent" appears
+                       with the identical name in Patrick's survey and therefore in Patrick's column there is a "same" value, while in 
+                       the other two surveys appears as Q144 or Q145, for which there is a "different name" value in the respective 
+                       columns 
